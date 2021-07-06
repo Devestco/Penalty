@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'sport_id',
+        'price',
+        'days',
+    ];
+
+    protected $casts = [
+        'days' => 'array',
+    ];
+
+    public function sport():object
+    {
+        return $this->belongsTo(Sport::class);
+    }
 }

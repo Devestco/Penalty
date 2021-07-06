@@ -15,11 +15,11 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->bigInteger('sport_id')->unsigned()->nullable();
             $table->foreign('sport_id')->references('id')->on('sports');
             $table->unsignedInteger('price')->nullable();
-            $table->json('days');
+            $table->json('days')->nullable();
             $table->timestamps();
         });
     }

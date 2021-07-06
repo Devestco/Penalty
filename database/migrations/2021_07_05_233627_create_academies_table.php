@@ -15,7 +15,6 @@ class CreateAcademiesTable extends Migration
     {
         Schema::create('academies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('ad_id')->unsigned()->nullable();

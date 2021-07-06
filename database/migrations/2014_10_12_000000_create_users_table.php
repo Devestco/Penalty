@@ -15,14 +15,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum('type',['ADMIN','PLAYER','CLUB','COACH'])->default('CLUB');
+            $table->enum('type',['ADMIN','PLAYER','ACADEMY','COACH'])->default('ACADEMY');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->unique()->nullable();
+            $table->enum('gender',['male','female'])->default('male');
+            //settings
             $table->boolean('banned')->default(false);
             $table->string('last_ip')->nullable();
+            $table->string('last_session_id')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

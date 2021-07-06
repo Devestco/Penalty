@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClubSize extends Model
+class AcademySize extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'banned'];
+
 }

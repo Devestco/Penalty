@@ -16,9 +16,9 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->char('name')->nullable();
-            $table->boolean('banned')->default(false);
             $table->bigInteger('sport_id')->unsigned()->nullable();
             $table->foreign('sport_id')->references('id')->on('sports');
+            $table->boolean('banned')->default(false);
             $table->timestamps();
         });
     }
