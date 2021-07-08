@@ -22,6 +22,7 @@ class CreateGroupsTable extends Migration
             $table->foreign('sport_id')->references('id')->on('sports');
             $table->unsignedInteger('price')->nullable();
             $table->json('days')->nullable();
+            $table->boolean('banned')->default(false);
             $table->timestamps();
         });
     }

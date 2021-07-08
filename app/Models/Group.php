@@ -29,4 +29,16 @@ class Group extends Model
     {
         return $this->belongsTo(Academy::class);
     }
+    public function days()
+    {
+        return $this->hasMany(GroupDay::class,'group_id','id');
+    }
+    public function players()
+    {
+        return $this->belongsToMany(Player::class, "group_player", "player_id", "group_id")->withTimestamps();
+    }
+    public function coaches()
+    {
+        return $this->belongsToMany(Coach::class, "group_coach", "coach_id", "group_id")->withTimestamps();
+    }
 }

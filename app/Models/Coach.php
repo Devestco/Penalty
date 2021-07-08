@@ -26,4 +26,8 @@ class Coach extends Model
     {
         return $this->belongsToMany(Course::class, "course_coach", "course_id", "coach_id");
     }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, "group_coach", "group_id", "coach_id");
+    }
 }

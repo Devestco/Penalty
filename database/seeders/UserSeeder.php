@@ -7,6 +7,7 @@ use App\Models\Academy;
 use App\Models\Coach;
 use App\Models\Course;
 use App\Models\CourseDay;
+use App\Models\Group;
 use App\Models\Player;
 use App\Models\User;
 use Carbon\Carbon;
@@ -50,13 +51,10 @@ class UserSeeder extends Seeder
     }
     private function createAcademy()
     {
-        User::factory()
-            ->count(15)->state(new Sequence(function ($sequence) {return ['type' => 'ACADEMY', 'name' => 'ACADEMY '.$sequence->index,];},))
+        User::factory()->count(15)->state(new Sequence(function ($sequence) {return ['type' => 'ACADEMY', 'name' => 'ACADEMY '.$sequence->index,];},))
             ->has(Academy::factory()->count(1)->state(function (array $attributes, User $user) {return ['created_at' => $user->created_at];})
-                    ->has(Course::factory()->count(rand(2,9))
-                        ->hasAttached(Player::factory()->count(rand(10,30)))
-                        ->hasAttached(Coach::factory()->count(rand(1,3)))
-                    )
+                    ->has(Course::factory()->count(rand(2,9))->state(function (array $attributes, Academy $academy) {return ['created_at' => Carbon::parse($academy->created_at)->addDays(rand(1,120))];}))
+                    ->has(Group::factory()->count(rand(2,9))->state(function (array $attributes, Academy $academy) {return ['created_at' => Carbon::parse($academy->created_at)->addDays(rand(1,120))];}))
             )
             ->create();
     }

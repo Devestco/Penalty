@@ -24,6 +24,7 @@ class CreateCoursesTable extends Migration
             $table->date('to_date')->nullable();
             $table->unsignedInteger('price')->nullable();
             $table->json('days')->nullable();
+            $table->boolean('banned')->default(false);
             $table->timestamps();
         });
     }

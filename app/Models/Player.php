@@ -27,6 +27,10 @@ class Player extends Model
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, "course_player", "course_id", "player_id");
+        return $this->belongsToMany(Course::class, "course_player", "course_id", "player_id")->withTimestamps();
+    }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, "group_player", "group_id", "player_id")->withTimestamps();
     }
 }

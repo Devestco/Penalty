@@ -40,10 +40,10 @@ class Course extends Model
 
     public function players()
     {
-        return $this->belongsToMany(Player::class, "course_player", "player_id", "course_id");
+        return $this->belongsToMany(Player::class, "course_player", "player_id", "course_id")->withTimestamps();
     }
     public function coaches()
     {
-        return $this->belongsToMany(Coach::class, "course_coach", "coach_id", "course_id");
+        return $this->belongsToMany(Coach::class, "course_coach", "coach_id", "course_id")->withTimestamps();
     }
 }

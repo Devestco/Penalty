@@ -24,7 +24,6 @@ class CreateAcademiesTable extends Migration
             $table->string('city')->nullable();
             $table->bigInteger('academy_size_id')->unsigned()->nullable();
             $table->foreign('academy_size_id')->references('id')->on('academy_sizes');
-            $table->boolean('banned')->default(false);
             $table->timestamps();
         });
     }
