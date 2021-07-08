@@ -18,7 +18,7 @@ class CreateCourseDaysTable extends Migration
             $table->bigInteger('course_id')->unsigned()->nullable();
             $table->foreign('course_id')->references('id')->on('courses');
             $table->date('date');
-            $table->time('start_time')->nullable();
+            $table->timestamp('start_time')->nullable();
             $table->unsignedInteger('duration')->nullable();
             $table->bigInteger('activity_id')->unsigned()->nullable();
             $table->foreign('activity_id')->references('id')->on('activities');

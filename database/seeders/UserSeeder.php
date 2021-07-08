@@ -4,12 +4,16 @@ namespace Database\Seeders;
 
 use App\Http\Enums\UserRole;
 use App\Models\Academy;
+use App\Models\Coach;
+use App\Models\Course;
+use App\Models\CourseDay;
+use App\Models\Player;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
-
+use Illuminate\Database\Eloquent\Factories\Sequence;
 class UserSeeder extends Seeder
 {
     /**
@@ -22,6 +26,8 @@ class UserSeeder extends Seeder
         $this->createRoles();
         $this->createSuperAdmin();
         $this->createAcademy();
+        $this->createCoach();
+        $this->createPlayer();
     }
     private function createRoles()
     {
@@ -35,7 +41,7 @@ class UserSeeder extends Seeder
             'type' => 'ADMIN',
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'phone' => '0500000000',
+            'phone' => '0512345622',
             'password' => "secret",
             'remember_token' => Str::random(10),
         ]);
@@ -44,53 +50,60 @@ class UserSeeder extends Seeder
     }
     private function createAcademy()
     {
-        $user = User::create([
-            'type' => 'ACADEMY',
-            'name' => 'academy 1',
-            'email' => 'academy_1@gmail.com',
-            'phone' => '0500000000',
-            'password' => "secret",
-            'remember_token' => Str::random(10),
-        ]);
-        $user->assignRole(UserRole::of(UserRole::ROLE_ACADEMY));
-        Academy::create([
-           'user_id'=>$user->id,
-           'ad_id'=>1,
-           'country_id'=>2,
-           'city'=>'al-ryad',
-           'academy_size_id'=>2
-        ]);
-        $user = User::create([
-            'type' => 'ACADEMY',
-            'name' => 'academy 2',
-            'email' => 'academy_2@gmail.com',
-            'phone' => '0500000011',
-            'password' => "secret",
-            'remember_token' => Str::random(10),
-        ]);
-        $user->assignRole(UserRole::of(UserRole::ROLE_ACADEMY));
-        Academy::create([
-           'user_id'=>$user->id,
-           'ad_id'=>2,
-           'country_id'=>2,
-           'city'=>'gda',
-           'academy_size_id'=>3
-        ]);
-        $user = User::create([
-            'type' => 'ACADEMY',
-            'name' => 'academy 3',
-            'email' => 'academy_3@gmail.com',
-            'phone' => '0500000022',
-            'password' => "secret",
-            'remember_token' => Str::random(10),
-        ]);
-        $user->assignRole(UserRole::of(UserRole::ROLE_ACADEMY));
-        Academy::create([
-           'user_id'=>$user->id,
-           'ad_id'=>3,
-           'country_id'=>2,
-           'city'=>'gda',
-           'academy_size_id'=>4
-        ]);
+        User::factory()
+            ->count(15)->state(new Sequence(function ($sequence) {return ['type' => 'ACADEMY', 'name' => 'ACADEMY '.$sequence->index,];},))
+            ->has(Academy::factory()->count(1)->state(function (array $attributes, User $user) {return ['created_at' => $user->created_at];})
+                    ->has(Course::factory()->count(rand(2,9))
+                        ->hasAttached(Player::factory()->count(rand(10,30)))
+                        ->hasAttached(Coach::factory()->count(rand(1,3)))
+                    )
+            )
+            ->create();
+    }
+    private function createCoach()
+    {
+        User::factory()
+            ->count(40)
+            ->state(new Sequence(
+                function ($sequence) {
+                    return [
+                        'type' => 'COACH',
+                        'name' => 'COACH '.$sequence->index,
+                    ];
+                },
+            ))
+            ->has(
+                Coach::factory()
+                    ->count(1)
+                    ->state(function (array $attributes, User $user) {
+                        return [
+                            'created_at' => $user->created_at
+                        ];
+                    })
+            )
+            ->create();
+    }
+    private function createPlayer()
+    {
+        User::factory()
+            ->count(250)
+            ->state(new Sequence(
+                function ($sequence) {
+                    return [
+                        'type' => 'PLAYER',
+                        'name' => 'PLAYER '.$sequence->index,
+                    ];
+                },
+            ))
+            ->has(
+                Player::factory()
+                    ->count(1)
+                    ->state(function (array $attributes, User $user) {
+                        return [
+                            'created_at' => $user->created_at
+                        ];
+                    })
+            )
+            ->create();
     }
 }

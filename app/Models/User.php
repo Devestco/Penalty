@@ -102,4 +102,21 @@ class User extends Authenticatable implements HasMedia
         $this->attributes['password'] = bcrypt($password);
     }
 
+    public function academy()
+    {
+        return $this->hasOne(Academy::class);
+    }
+
+    public function coach()
+    {
+        return $this->hasOne(Coach::class);
+    }
+
+    public function player()
+    {
+        return $this->hasOne(Player::class);
+    }
+
+
+
 }

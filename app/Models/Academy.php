@@ -33,4 +33,12 @@ class Academy extends Model
     {
         return $this->belongsTo(AcademySize::class);
     }
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
 }

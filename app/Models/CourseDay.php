@@ -19,7 +19,7 @@ class CourseDay extends Model
 
     protected $casts = [
         'date' => 'date',
-        'start_time' => 'time',
+        'start_time' => 'datetime',
     ];
 
     public function course():object
@@ -29,5 +29,10 @@ class CourseDay extends Model
     public function activity():object
     {
         return $this->belongsTo(Activity::class);
+    }
+
+    public function coaches()
+    {
+        return $this->belongsToMany(Coach::class, "course_coach_day", "coach_id", "course_day_id");
     }
 }

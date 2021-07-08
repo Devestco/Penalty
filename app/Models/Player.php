@@ -24,4 +24,9 @@ class Player extends Model
     {
         return $this->belongsTo(Ad::class);
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, "course_player", "course_id", "player_id");
+    }
 }

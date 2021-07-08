@@ -18,7 +18,7 @@ class GroupDay extends Model
     ];
 
     protected $casts = [
-        'start_time' => 'time',
+        'start_time' => 'datetime',
     ];
 
     public function group():object

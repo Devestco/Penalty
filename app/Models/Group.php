@@ -11,6 +11,7 @@ class Group extends Model
 
     protected $fillable = [
         'name',
+        'academy_id',
         'sport_id',
         'price',
         'days',
@@ -23,5 +24,9 @@ class Group extends Model
     public function sport():object
     {
         return $this->belongsTo(Sport::class);
+    }
+    public function academy():object
+    {
+        return $this->belongsTo(Academy::class);
     }
 }
