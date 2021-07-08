@@ -18,7 +18,7 @@
                                         </div>
                                         <div class="col-5 align-self-center">
                                             <div class="progress progress-sm">
-                                                <div class="{{$pClass}}" role="progressbar" style="width: 62%" aria-valuenow="{{$pValue}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="{{$pClass}}" role="progressbar" style="width: {{$pValue}}%" aria-valuenow="{{$pValue}}" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>

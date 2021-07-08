@@ -1,45 +1,45 @@
 @extends('layouts.master')
 
-@section('title') Dashboard @endsection
+@section('title') لوحة التحكم @endsection
 
 @section('content')
 
     @component('common-components.breadcrumb')
-         @slot('title') Dashboard   @endslot
-         @slot('title_li') Welcome to Qovex Dashboard   @endslot
+         @slot('title') لوحة التحكم   @endslot
+         @slot('title_li') مرحبا بك في {{config('app.name', 'Laravel')}} Dashboard   @endslot
      @endcomponent
 
                     <div class="row">
                         <div class="col-xl-3">
-                            
+
      @component('common-components.dashboard-widget')
-     
-         @slot('title') New Orders  @endslot
-         @slot('iconClass') mdi mdi-tag-plus-outline  @endslot
-         @slot('price') 1,368  @endslot
-         @slot('percentage') 0.28%   @endslot
+
+         @slot('title') الأكاديميات   @endslot
+         @slot('iconClass') mdi mdi-flip-horizontal  @endslot
+         @slot('price') {{$all_academies_count}}  @endslot
+         @slot('percentage') {{round(($new_academies_count/$all_academies_count)*100)}}%   @endslot
          @slot('pClass') progress-bar bg-primary   @endslot
-         @slot('pValue') 62   @endslot
-        
+         @slot('pValue') {{round(($new_academies_count/$all_academies_count)*100)}}   @endslot
+
      @endcomponent
-     
+
      @component('common-components.dashboard-widget')
-     
-         @slot('title') New Users  @endslot
-         @slot('iconClass') mdi mdi-account-multiple-outline  @endslot
-         @slot('price') 2,456  @endslot
-         @slot('percentage') 0.16%   @endslot
+
+         @slot('title') المدربين  @endslot
+         @slot('iconClass') mdi mdi-gamepad-square  @endslot
+         @slot('price') {{$all_coaches_count}}  @endslot
+         @slot('percentage') {{round(($new_coaches_count/$all_coaches_count)*100)}}%   @endslot
          @slot('pClass') progress-bar bg-success   @endslot
-         @slot('pValue') 62   @endslot
-        
+         @slot('pValue') {{round(($new_coaches_count/$all_coaches_count)*100)}}   @endslot
+
      @endcomponent
-     
+
                         </div>
 
                         <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Sales Report</h4>
+                                    <h4 class="card-title mb-4">اشتراكات اللاعبين</h4>
 
                                     <div id="line-chart" class="apex-charts"></div>
                                 </div>
@@ -49,7 +49,7 @@
                         <div class="col-xl-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Revenue</h4>
+                                    <h4 class="card-title mb-4">الأرباح</h4>
 
                                     <div id="column-chart" class="apex-charts"></div>
                                 </div>
@@ -62,7 +62,7 @@
                         <div class="col-xl-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Sales Analytics</h4>
+                                    <h4 class="card-title mb-4">تحليل الأرباح</h4>
 
                                     <div class="row align-items-center">
                                         <div class="col-sm-6">
@@ -100,7 +100,7 @@
                         <div class="col-xl-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Monthly Sales</h4>
+                                    <h4 class="card-title mb-4">تحليل للجروبات والكورسات</h4>
 
                                     <div id="scatter-chart" class="apex-charts"></div>
                                 </div>
@@ -108,73 +108,11 @@
                         </div>
 
                         <div class="col-xl-3">
-                            <div class="card bg-primary">
-                                <div class="card-body">
-                                    <div class="text-white-50">
-                                        <h5 class="text-white">2400 + New Users</h5>
-                                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus</p>
-                                        <div>
-                                            <a href="#" class="btn btn-outline-success btn-sm">View more</a>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-8">
-                                            <div class="mt-4">
-                                                <img src="images/widget-img.png" alt="" class="img-fluid mx-auto d-block">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end row -->
-
-                    <div class="row">
-                        <div class="col-xl-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Overview</h4>
-
-                                    <div>
-
-    @component('common-components.dashboard-overview')
-         @slot('mainClass') pb-3 border-bottom  @endslot
-         @slot('title') New Visitors  @endslot
-         @slot('total') 3,524  @endslot
-         @slot('percentage')  2.06 %   @endslot
-         @slot('pClass') progress-bar bg-success  @endslot
-         @slot('pValue') 62   @endslot
-        
-     @endcomponent
-    @component('common-components.dashboard-overview')
-
-         @slot('mainClass') pb-3 border-bottom mt-2  @endslot
-         @slot('title') Product Views  @endslot
-         @slot('total') 2,465 @endslot
-         @slot('percentage')   0.37 %  @endslot
-         @slot('pClass')  progress-bar bg-warning  @endslot
-         @slot('pValue') 48   @endslot
-     @endcomponent
-
-    @component('common-components.dashboard-overview')
-         @slot('mainClass') pb-3  @endslot
-         @slot('title') Revenue  @endslot
-         @slot('total') $ 4,653 @endslot
-         @slot('percentage')   2.18 %  @endslot
-         @slot('pClass')  progress-bar bg-success  @endslot
-         @slot('pValue') 78   @endslot
-     @endcomponent
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Reviews</h4>
+                                    <h4 class="card-title mb-4">آراء اللاعبين</h4>
                                     <div class="mb-4">
-                                        <h5><span class="text-primary">500</span>+ Satisfied clients</h5>
+                                        <h5><span class="text-primary">{{$all_players_count}}</span>+ لاعب</h5>
                                     </div>
                                     <div class="mb-3">
                                         <i class="fas fa-quote-left h4 text-primary"></i>
@@ -241,131 +179,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Revenue by location</h4>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div id="usa-vectormap" style="height: 230px"></div>
-                                        </div>
-
-                                        <div class="col-sm-5 ml-auto">
-                                            <div class="mt-4 mt-sm-0">
-                                                <p>Last month Revenue</p>
-
-                                                <div class="media py-3">
-                                                    <div class="media-body">
-                                                        <p class="mb-2">California</p>
-                                                        <h5 class="mb-0">$ 2,256</h5>
-                                                    </div>
-                                                    <div>
-                                                        2.52 % <i class="mdi mdi-arrow-up text-success ml-1"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="media py-3 border-top">
-                                                    <div class="media-body">
-                                                        <p class="mb-2">Nevada</p>
-                                                        <h5 class="mb-0">$ 1,853</h5>
-                                                    </div>
-                                                    <div>
-                                                        1.26 % <i class="mdi mdi-arrow-up text-success ml-1"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
                     <!-- end row -->
 
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Inbox</h4>
-
-                                    <ul class="inbox-wid list-unstyled">
-                                        <li class="inbox-list-item">
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="mr-3 align-self-center">
-                                                        <img src="images/users/avatar-3.jpg" alt="" class="avatar-sm rounded-circle">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="font-size-16 mb-1">Paul</h5>
-                                                        <p class="text-truncate mb-0">Hey! there I'm available</p>
-                                                    </div>
-                                                    <div class="font-size-12 ml-2">
-                                                        05 min
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="inbox-list-item">
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="mr-3 align-self-center">
-                                                        <img src="images/users/avatar-4.jpg" alt="" class="avatar-sm rounded-circle">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="font-size-16 mb-1">Mary</h5>
-                                                        <p class="text-truncate mb-0">This theme is awesome!</p>
-                                                    </div>
-                                                    <div class="font-size-12 ml-2">
-                                                        12 min
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="inbox-list-item">
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="mr-3 align-self-center">
-                                                        <img src="images/users/avatar-5.jpg" alt="" class="avatar-sm rounded-circle">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="font-size-16 mb-1">Cynthia</h5>
-                                                        <p class="text-truncate mb-0">Nice to meet you</p>
-                                                    </div>
-                                                    <div class="font-size-12 ml-2">
-                                                        18 min
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="inbox-list-item">
-                                            <a href="#">
-                                                <div class="media">
-                                                    <div class="mr-3 align-self-center">
-                                                        <img src="images/users/avatar-6.jpg" alt="" class="avatar-sm rounded-circle">
-                                                    </div>
-                                                    <div class="media-body overflow-hidden">
-                                                        <h5 class="font-size-16 mb-1">Darren</h5>
-                                                        <p class="text-truncate mb-0">I've finished it! See you so</p>
-                                                    </div>
-                                                    <div class="font-size-12 ml-2">
-                                                        2hr ago
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                    <div class="text-center">
-                                        <a href="#" class="btn btn-primary btn-sm">Load more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Latest Transactions</h4>
+                                    <h4 class="card-title mb-4">التحصيلات الشهرية لللاعبين</h4>
 
                                     <div class="table-responsive">
                                         <table class="table table-centered">
@@ -444,10 +266,10 @@
 @section('script')
         <!-- plugin js -->
         <script src="{{ URL::asset('libs/apexcharts/apexcharts.min.js')}}"></script>
-        
+
         <!-- jquery.vectormap map -->
         <script src="{{ URL::asset('libs/jquery-vectormap/jquery-vectormap.min.js')}}"></script>
-        
+
         <!-- Calendar init -->
         <script src="{{ URL::asset('js/pages/dashboard.init.js')}}"></script>
 @endsection
