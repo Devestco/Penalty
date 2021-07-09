@@ -29,7 +29,7 @@ class Group extends Model
     {
         return $this->belongsTo(Academy::class);
     }
-    public function days()
+    public function group_days()
     {
         return $this->hasMany(GroupDay::class,'group_id','id');
     }

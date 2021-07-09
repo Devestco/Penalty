@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar">
+<html  lang="ar">
 <head>
     <meta charset="utf-8" />
     <title>@yield('title') | {{config('app.name', 'Laravel')}} </title>
@@ -8,6 +8,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon" href="{{ URL::asset('images/favicon.ico')}}">
     @include('layouts.head')
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        body,h4{
+            font-family: 'Cairo', serif;
+        }
+    </style>
 </head>
 
 @section('body')

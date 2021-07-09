@@ -6,6 +6,7 @@ use App\Services\FileService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Permission\Traits\HasRoles;
@@ -78,7 +79,13 @@ class User extends Authenticatable implements HasMedia
 
     protected function setAvatarAttribute($image)
     {
-        FileService::upload($image, $this, "avatars", true);
+        $this->clearMediaCollection("avatars");
+        $fileName = time() . Str::random(10);
+        $fileNameWithExt = time() . Str::random(10) . '.' . $image->getClientOriginalExtension();
+        $this->addMedia($image)
+            ->usingFileName($fileNameWithExt)
+            ->usingName($fileName)
+            ->toMediaCollection("avatars");
     }
 
     public function getAllPermissionsAttribute(): array

@@ -25,8 +25,8 @@
                         <span>الأكادميات</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.academy.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.academy.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -36,8 +36,8 @@
                         <span>المدربين</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.coach.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.coach.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -47,8 +47,8 @@
                         <span>اللاعبين</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.player.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.player.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -60,8 +60,8 @@
                         <span>الجروبات</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.group.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.group.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -71,8 +71,8 @@
                         <span>الكورسات</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.course.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.course.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -84,8 +84,8 @@
                         <span>الدول</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.country.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.country.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -95,19 +95,19 @@
                         <span>تصنيفات الأكاديميات</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.academy_size.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.academy_size.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="mdi mdi-contacts"></i>
-                        <span>وسائل التواصل</span>
+                        <span>وسائل الإعلان</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.ad.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.ad.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 
@@ -117,8 +117,8 @@
                         <span>الرياضات</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">عرض الكل</a></li>
-                        <li><a href="#">إضافة</a></li>
+                        <li><a href="{{route('admin.sport.index')}}">عرض الكل</a></li>
+                        <li><a href="{{route('admin.sport.create')}}">إضافة</a></li>
                     </ul>
                 </li>
 

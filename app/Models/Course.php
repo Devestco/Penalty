@@ -33,7 +33,7 @@ class Course extends Model
         return $this->belongsTo(Academy::class);
     }
 
-    public function days()
+    public function course_days()
     {
         return $this->hasMany(CourseDay::class,'course_id','id');
     }
