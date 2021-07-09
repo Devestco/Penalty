@@ -5,8 +5,8 @@
 @endsection
 @section('content')
     @component('common-components.breadcrumb')
-         @slot('title') وسائل الإعلان  @endslot
-         @slot('li_1') عرض الكل  @endslot
+        @slot('title') وسائل الإعلان  @endslot
+        @slot('li_1') عرض الكل  @endslot
     @endcomponent
     <div class="row">
         <div class="col-12">
@@ -17,10 +17,10 @@
                     </a>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
-                            <tr>
-                                <th>الاسم</th>
-                                <th>العمليات المتاحة</th>
-                            </tr>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>العمليات المتاحة</th>
+                        </tr>
                         </thead>
 
                         <tbody>
@@ -29,6 +29,9 @@
                                 <td>{{$row->name}}</td>
                                 <td>
                                     <div class="button-list">
+                                        <a href="{{route('admin.ad.edit',$row->id)}}">
+                                            <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-pen mr-1"></i> <span>تعديل</span> </button>
+                                        </a>
                                         @if($row->banned==0)
                                             <form class="ban" data-id="{{$row->id}}" method="POST" action="{{ route('admin.ad.ban',[$row->id]) }}">
                                                 @csrf
@@ -55,7 +58,7 @@
         <!-- end col -->
     </div>
     <!-- end row -->
-    @endsection
+@endsection
 @section('script')
     <!-- Required datatable js -->
     <script src="{{ URL::asset('/libs/datatables/datatables.min.js')}}"></script>
