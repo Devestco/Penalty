@@ -158,19 +158,19 @@
                 <div class="navbar-brand-box">
                     <a href="{{route('admin.home')}}" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{asset('images/logo-sm.png')}}" alt="" height="20">
+                            <img src="{{asset('media/images/logo.jpeg')}}" alt="" height="40">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{asset('images/logo-dark.png')}}" alt="" height="17">
+                            <img src="{{asset('media/images/logo.jpeg')}}" alt="" height="50">
                         </span>
                     </a>
 
                     <a href="{{route('admin.home')}}" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{asset('images/logo-sm.png')}}" alt="" height="20">
+                            <img src="{{asset('media/images/logo.jpeg')}}" alt="" height="50">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{asset('images/logo-light.png')}}" alt="" height="17">
+                            <img src="{{asset('media/images/logo.jpeg')}}" alt="" height="50">
                         </span>
                     </a>
                 </div>
