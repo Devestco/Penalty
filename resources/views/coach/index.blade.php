@@ -51,19 +51,19 @@
                                         <a href="{{route('admin.coach.edit',$row->id)}}">
                                             <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-pen mr-1"></i> <span>تعديل</span> </button>
                                         </a>
-                                        @if($row->user->banned==0)
-                                            <form class="ban" data-id="{{$row->user->id}}" method="POST" action="{{ route('admin.user.ban',[$row->user->id]) }}">
-                                                @csrf
-                                                {{ method_field('POST') }}
-                                                <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>حظر</span> </button>
-                                            </form>
-                                        @else
-                                            <form class="activate" data-id="{{$row->user->id}}" method="POST" action="{{ route('admin.user.activate',[$row->user->id]) }}">
-                                                @csrf
-                                                {{ method_field('POST') }}
-                                                <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تفعيل</span> </button>
-                                            </form>
-                                        @endif
+{{--                                        @if($row->user->banned==0)--}}
+{{--                                            <form class="ban" data-id="{{$row->user->id}}" method="POST" action="{{ route('admin.user.ban',[$row->user->id]) }}">--}}
+{{--                                                @csrf--}}
+{{--                                                {{ method_field('POST') }}--}}
+{{--                                                <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>حظر</span> </button>--}}
+{{--                                            </form>--}}
+{{--                                        @else--}}
+{{--                                            <form class="activate" data-id="{{$row->user->id}}" method="POST" action="{{ route('admin.user.activate',[$row->user->id]) }}">--}}
+{{--                                                @csrf--}}
+{{--                                                {{ method_field('POST') }}--}}
+{{--                                                <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تفعيل</span> </button>--}}
+{{--                                            </form>--}}
+{{--                                        @endif--}}
                                     </div>
                                 </td>
                             </tr>

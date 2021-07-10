@@ -14,6 +14,11 @@
         body,h4{
             font-family: 'Cairo', serif;
         }
+
+        .button-list{
+            display: inline-block;
+            margin: 0;
+        }
     </style>
 </head>
 
