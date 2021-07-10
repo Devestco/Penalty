@@ -27,8 +27,8 @@ class UserSeeder extends Seeder
         $this->createRoles();
         $this->createSuperAdmin();
         $this->createAcademy();
-        $this->createCoach();
-        $this->createPlayer();
+//        $this->createCoach();
+//        $this->createPlayer();
     }
     private function createRoles()
     {

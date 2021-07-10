@@ -9,6 +9,7 @@ class Player extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'academy_id',
         'user_id',
         'birth_date',
         'nationality',
@@ -16,6 +17,10 @@ class Player extends Model
         'ad_id',
     ];
 
+    public function academy():object
+    {
+        return $this->belongsTo(Academy::class);
+    }
     public function user():object
     {
         return $this->belongsTo(User::class);

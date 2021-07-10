@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Enums\UserRole;
 use App\Http\Requests\Dashboard\PlayerStoreRequest;
+use App\Models\Academy;
 use App\Models\Ad;
 use App\Models\Player;
 use App\Models\User;
@@ -26,7 +27,8 @@ class PlayerController extends MasterController
     public function create()
     {
         $ads = Ad::all();
-        return view('player.create', compact('ads'));
+        $academies = Academy::all();
+        return view('player.create', compact('academies','ads'));
     }
 
     public function store(PlayerStoreRequest $request)

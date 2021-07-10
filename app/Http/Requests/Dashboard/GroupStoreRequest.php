@@ -25,14 +25,17 @@ class GroupStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:25',
-            'email' => 'required|email:rfc,dns|max:90|unique:users',
-            'phone' => 'required|unique:users',
-            'password' => 'required|string|min:6|max:15',
-            'avatar' => 'nullable|image',
-            'country_id' => 'required|numeric|exists:countries,id',
-            'ad_id' => 'required|numeric|exists:ads,id',
-            'academy_size_id' => 'required|numeric|exists:academy_sizes,id',
-            'city' => 'required',
+            'price' => 'required|numeric',
+            'academy_id' => 'required|numeric|exists:academies,id',
+            'sport_id' => 'required|numeric|exists:sports,id',
+            'days' => 'required',
+            'start_time' => 'required',
+            'duration' => 'required',
+            'comment' => 'nullable',
+            'coaches' => 'required',
+            'players' => 'required',
+            'from_date' => 'nullable',
+            'to_date' => 'nullable',
         ];
     }
 

@@ -33,6 +33,10 @@ class Academy extends Model
     {
         return $this->belongsTo(AcademySize::class);
     }
+    public function players()
+    {
+        return $this->hasMany(Player::class);
+    }
     public function courses()
     {
         return $this->hasMany(Course::class);

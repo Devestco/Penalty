@@ -89,6 +89,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label">الأكاديمية</label>
+                            <select name="academy_id" class="form-control select2">
+                                @foreach($academies as $academy)
+                                    <option value="{{$academy->id}}">{{$academy->user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                 </div>
             </div>
             <!-- end select2 -->

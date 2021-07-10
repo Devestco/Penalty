@@ -30,6 +30,7 @@ class PlayerStoreRequest extends FormRequest
             'password' => 'required|string|min:6|max:15',
             'avatar' => 'nullable|image',
             'ad_id' => 'required|numeric|exists:ads,id',
+            'academy_id' => 'required|numeric|exists:academies,id',
             'birth_date' => 'required|date',
             'nationality' => 'required',
             'nationality_id' => 'required',

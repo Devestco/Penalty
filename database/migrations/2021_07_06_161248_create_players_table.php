@@ -17,6 +17,8 @@ class CreatePlayersTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('academy_id')->unsigned()->nullable();
+            $table->foreign('academy_id')->references('id')->on('academies');
             $table->date('birth_date')->nullable();
             $table->string('nationality')->nullable();
             $table->string('nationality_id')->nullable();

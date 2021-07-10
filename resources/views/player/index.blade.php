@@ -20,6 +20,7 @@
                         <thead>
                             <tr>
                                 <th>الاسم</th>
+                                <th>الأكاديمية</th>
                                 <th>الجنسية</th>
                                 <th>رقم الجوال</th>
                                 <th>الصورة الشخصية</th>
@@ -31,6 +32,7 @@
                         @foreach($rows as $row)
                             <tr>
                                 <td>{{$row->user->name}}</td>
+                                <td>{{$row->academy->user->name}}</td>
                                 <td>{{$row->nationality}}</td>
                                 <td>{{$row->user->phone}}</td>
                                 <td data-toggle="modal" data-target="#imgModal{{$row->id}}">

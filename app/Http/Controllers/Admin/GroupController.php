@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Dashboard\GroupStoreRequest;
 use App\Models\Academy;
+use App\Models\Activity;
+use App\Models\Coach;
+use App\Models\Course;
 use App\Models\Group;
 use App\Models\GroupDay;
+use App\Models\Player;
 use App\Models\Sport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class GroupController extends MasterController
@@ -26,7 +31,9 @@ class GroupController extends MasterController
     {
         $sports = Sport::all();
         $academies = Academy::all();
-        return view('group.create', compact('academies', 'sports'));
+        $coaches = Coach::all();
+        $players = Player::all();
+        return view('group.create', compact('academies', 'sports','coaches','players'));
     }
 
     public function store(GroupStoreRequest $request)
@@ -38,12 +45,14 @@ class GroupController extends MasterController
             GroupDay::create([
                 'group_id' => $group->id,
                 'name' => $day,
-                'start_time' => $request['start_time'],
+                'start_time' => Carbon::parse($request['start_time']),
                 'duration' => $request['duration'],
-                'activity_id' => $request['activity_id'],
+                'activity_id' => 1,
                 'comment' => $request['comment'],
             ]);
         }
+        $group->players()->sync($request['players']);
+        $group->coaches()->sync($request['coaches']);
         return redirect()->route('admin.group.index')->with('created');
     }
 

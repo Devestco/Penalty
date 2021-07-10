@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Dashboard\GroupStoreRequest;
 use App\Models\Academy;
+use App\Models\Coach;
 use App\Models\Course;
 use App\Models\CourseDay;
+use App\Models\Group;
+use App\Models\GroupDay;
+use App\Models\Player;
 use App\Models\Sport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CourseController extends MasterController
@@ -26,24 +31,33 @@ class CourseController extends MasterController
     {
         $sports = Sport::all();
         $academies = Academy::all();
-        return view('course.create', compact('academies', 'sports'));
+        $coaches = Coach::all();
+        $players = Player::all();
+        return view('course.create', compact('academies', 'sports','coaches','players'));
     }
 
     public function store(GroupStoreRequest $request)
     {
         $data = $request->all();
         $course = Course::create($data);
-        $days = $request['days'];
-        foreach ($days as $day) {
-            CourseDay::create([
-                'course_id' => $course->id,
-                'name' => $day,
-                'start_time' => $request['start_time'],
-                'duration' => $request['duration'],
-                'activity_id' => $request['activity_id'],
-                'comment' => $request['comment'],
-            ]);
+
+        $start_date = Carbon::parse($course->from_date)->format('Y-m-d');
+        $end_date = Carbon::parse($course->to_date)->format('Y-m-d');
+        while ($start_date <= $end_date) {
+            if (in_array(Carbon::parse($start_date)->dayName, $course->days)) {
+                CourseDay::create([
+                    'course_id' => $course->id,
+                    'date' => $start_date,
+                    'start_time' => Carbon::parse($request['start_time']),
+                    'duration' => $request['duration'],
+                    'activity_id' => 1,
+                    'comment' => $request['comment'],
+                ]);
+            }
+            $start_date = Carbon::parse($start_date)->addDay();
         }
+        $course->players()->sync($request['players']);
+        $course->coaches()->sync($request['coaches']);
         return redirect()->route('admin.course.index')->with('created');
     }
 

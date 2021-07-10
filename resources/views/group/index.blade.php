@@ -25,7 +25,7 @@
                                 <th>السعر</th>
                                 <th>عدد المدربين</th>
                                 <th>عدد المتدربين</th>
-                                <th>العمليات المتاحة</th>
+{{--                                <th>العمليات المتاحة</th>--}}
                             </tr>
                         </thead>
 
@@ -38,14 +38,14 @@
                                 <td>{{$row->price}}</td>
                                 <td>{{count($row->coaches)}}</td>
                                 <td>{{count($row->players)}}</td>
-                                 <td>
-                                    <div class="button-list">
-                                        <a href="{{route('admin.group.show',$row->id)}}">
-                                            <button class="btn btn-info waves-effect waves-light"> <i class="fa fa-eye mr-1"></i> <span>عرض</span> </button>
-                                        </a>
-                                        <a href="{{route('admin.group.edit',$row->id)}}">
-                                            <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-pen mr-1"></i> <span>تعديل</span> </button>
-                                        </a>
+{{--                                 <td>--}}
+{{--                                    <div class="button-list">--}}
+{{--                                        <a href="{{route('admin.group.show',$row->id)}}">--}}
+{{--                                            <button class="btn btn-info waves-effect waves-light"> <i class="fa fa-eye mr-1"></i> <span>عرض</span> </button>--}}
+{{--                                        </a>--}}
+{{--                                        <a href="{{route('admin.group.edit',$row->id)}}">--}}
+{{--                                            <button class="btn btn-warning waves-effect waves-light"> <i class="fa fa-pen mr-1"></i> <span>تعديل</span> </button>--}}
+{{--                                        </a>--}}
 {{--                                        @if($row->banned==0)--}}
 {{--                                            <form class="ban" data-id="{{$row->id}}" method="POST" action="{{ route('admin.user.ban',[$row->id]) }}">--}}
 {{--                                                @csrf--}}
@@ -59,8 +59,8 @@
 {{--                                                <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تفعيل</span> </button>--}}
 {{--                                            </form>--}}
 {{--                                        @endif--}}
-                                    </div>
-                                </td>
+{{--                                    </div>--}}
+{{--                                </td>--}}
                             </tr>
                         @endforeach
                         </tbody>
