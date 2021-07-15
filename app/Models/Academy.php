@@ -14,9 +14,13 @@ class Academy extends Model
         'ad_id',
         'country_id',
         'city',
+        'district',
+        'location',
         'academy_size_id',
     ];
-
+    protected $casts = [
+        'location' => 'json',
+    ];
     public function user():object
     {
         return $this->belongsTo(User::class);

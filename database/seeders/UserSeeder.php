@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
     {
         $this->createRoles();
         $this->createSuperAdmin();
-        $this->createAcademy();
+       // $this->createAcademy();
 //        $this->createCoach();
 //        $this->createPlayer();
     }
@@ -53,8 +53,8 @@ class UserSeeder extends Seeder
     {
         User::factory()->count(15)->state(new Sequence(function ($sequence) {return ['type' => 'ACADEMY', 'name' => 'ACADEMY '.$sequence->index,];},))
             ->has(Academy::factory()->count(1)->state(function (array $attributes, User $user) {return ['created_at' => $user->created_at];})
-                    ->has(Course::factory()->count(rand(2,9))->state(function (array $attributes, Academy $academy) {return ['created_at' => Carbon::parse($academy->created_at)->addDays(rand(1,120))];}))
-                    ->has(Group::factory()->count(rand(2,9))->state(function (array $attributes, Academy $academy) {return ['created_at' => Carbon::parse($academy->created_at)->addDays(rand(1,120))];}))
+                  //  ->has(Course::factory()->count(rand(2,9))->state(function (array $attributes, Academy $academy) {return ['created_at' => Carbon::parse($academy->created_at)->addDays(rand(1,120))];}))
+                  //  ->has(Group::factory()->count(rand(2,9))->state(function (array $attributes, Academy $academy) {return ['created_at' => Carbon::parse($academy->created_at)->addDays(rand(1,120))];}))
             )
             ->create();
     }

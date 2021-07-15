@@ -30,6 +30,10 @@ class CoachStoreRequest extends FormRequest
             'password' => 'required|string|min:6|max:15',
             'avatar' => 'nullable|image',
             'sport_id' => 'required|numeric|exists:sports,id',
+            'city' => 'required',
+            'nationality' => 'required',
+            'nationality_id' => 'required',
+
         ];
     }
 

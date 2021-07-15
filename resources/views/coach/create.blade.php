@@ -71,6 +71,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label">الجنسية</label>
+                            <input required type="text" class="form-control" maxlength="25" name="nationality" id="alloptions" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">رقم الهوية</label>
+                            <input required type="text" class="form-control" maxlength="50" name="nationality_id" id="alloptions" />
+                        </div>
                 </div>
             </div>
             <!-- end select2 -->

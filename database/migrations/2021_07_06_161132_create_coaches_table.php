@@ -19,6 +19,11 @@ class CreateCoachesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('sport_id')->unsigned()->nullable();
             $table->foreign('sport_id')->references('id')->on('sports');
+            $table->bigInteger('academy_id')->unsigned()->nullable();
+            $table->foreign('academy_id')->references('id')->on('academies');
+            $table->string('city')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('nationality_id')->nullable();
             $table->timestamps();
         });
     }

@@ -54,9 +54,9 @@
             </div>
         </div>
             <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">بيانات الأكاديمية</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">بيانات الأكاديمية</h4>
                         <div class="form-group">
                             <label for="image">الشعار</label>
                             <div class="card-box">
@@ -76,6 +76,10 @@
                             <input type="text" class="form-control" maxlength="25" name="city" id="alloptions" />
                         </div>
                         <div class="form-group">
+                            <label class="control-label">الحي</label>
+                            <input type="text" class="form-control" maxlength="25" name="district" id="alloptions" />
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">كيف سمعت عنا</label>
                             <select name="ad_id" class="form-control select2">
                                 @foreach($ads as $ad)
@@ -83,18 +87,59 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-3">الموقع</h4>
+                            <script async defer
+                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&&callback=initMap" type="text/javascript">
+                            </script>
+                            <div id="map" class="gmaps" style="position: relative; overflow: hidden;"></div>
+                            <input name="lat" type="hidden" id="lat">
+                            <input name="lng" type="hidden" id="lng">
+                        </div>
+
                         <div class="form-group">
                             <label class="control-label">حجم الأكاديمية</label>
-                            <select name="academy_size_id" class="form-control select2">
+                            <select id="academy_size_id" name="academy_size_id" class="form-control select2">
                                 @foreach($academy_sizes as $academy_size)
                                     <option value="{{$academy_size->id}}">{{$academy_size->name}}</option>
                                 @endforeach
                             </select>
                         </div>
+
+                    </div>
                 </div>
             </div>
-            <!-- end select2 -->
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6" id="single-coach-academy">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">بيانات المدرب</h4>
+                        <div class="form-group">
+                            <label class="control-label">الرياضة</label>
+                            <select name="sport_id" class="form-control select2">
+                                @foreach($sports as $sport)
+                                    <option value="{{$sport->id}}">{{$sport->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">الجنسية</label>
+                            <input required type="text" class="form-control" maxlength="25" name="nationality" id="alloptions" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">رقم الهوية</label>
+                            <input required type="text" class="form-control" maxlength="50" name="nationality_id" id="alloptions" />
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="form-group">
@@ -117,10 +162,8 @@
 <script src="{{URL::asset('/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
 <script src="{{URL::asset('/libs/bootstrap-touchspin/bootstrap-touchspin.min.js')}}"></script>
 <script src="{{URL::asset('/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
-
 <!-- form advanced init -->
 <script src="{{URL::asset('/js/pages/form-advanced.init.js')}}"></script>
-
 <script src="{{asset('/libs/dropify/dist/js/dropify.min.js')}}"></script>
 <script>
     $(document).ready(function() {
@@ -157,5 +200,38 @@
             }
         })
     });
+</script>
+<script>
+        $('#academy_size_id').change(function () {
+            if ($('#academy_size_id').val()=='1'){
+                $('#single-coach-academy').removeAttr('hidden');
+            }else{
+                $('#single-coach-academy').attr('hidden', 'hidden');
+            }
+        });
+    </script>
+<script>
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            // center: {lat:  window.lat   , lng:  window.lng   },
+            center: {lat: 24.774265, lng: 46.738586},
+            zoom: 15,
+            mapTypeId: 'roadmap'
+        });
+        var marker;
+        google.maps.event.addListener(map, 'click', function (event) {
+            map.setZoom();
+            var mylocation = event.latLng;
+            map.setCenter(mylocation);
+            $('#lat').val(event.latLng.lat());
+            $('#lng').val(event.latLng.lng());
+            setTimeout(function () {
+                if (!marker)
+                    marker = new google.maps.Marker({position: mylocation, map: map});
+                else
+                    marker.setPosition(mylocation);
+            }, 600);
+        });
+    }
 </script>
 @endsection

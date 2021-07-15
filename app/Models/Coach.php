@@ -11,6 +11,10 @@ class Coach extends Model
     protected $fillable = [
         'user_id',
         'sport_id',
+        'academy_id',
+        'city',
+        'nationality',
+        'nationality_id',
     ];
 
     public function user():object
@@ -20,6 +24,10 @@ class Coach extends Model
     public function sport():object
     {
         return $this->belongsTo(Sport::class);
+    }
+    public function academy():object
+    {
+        return $this->belongsTo(Academy::class);
     }
 
     public function courses()

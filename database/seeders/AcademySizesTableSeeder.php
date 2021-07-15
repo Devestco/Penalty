@@ -15,6 +15,9 @@ class AcademySizesTableSeeder extends Seeder
     public function run()
     {
         AcademySize::create([
+            'name' => 'مدرب خاص',
+        ]);
+        AcademySize::create([
             'name' => 'صغير (حتي ٧٠ لاعب)',
         ]);
         AcademySize::create([

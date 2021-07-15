@@ -22,6 +22,10 @@ class CreateAcademiesTable extends Migration
             $table->bigInteger('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('countries');
             $table->string('city')->nullable();
+
+            $table->string('district')->nullable();
+            $table->json('location')->nullable();
+
             $table->bigInteger('academy_size_id')->unsigned()->nullable();
             $table->foreign('academy_size_id')->references('id')->on('academy_sizes');
             $table->timestamps();

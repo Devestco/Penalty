@@ -16,7 +16,7 @@
 
          @slot('title') الأكاديميات   @endslot
          @slot('iconClass') mdi mdi-flip-horizontal  @endslot
-         @slot('price') {{$all_academies_count}}  @endslot
+         @slot('price') {{\App\Models\User::where('type','ACADEMY')->count()}}  @endslot
          @slot('percentage') {{round(($new_academies_count/$all_academies_count)*100)}}%   @endslot
          @slot('pClass') progress-bar bg-primary   @endslot
          @slot('pValue') {{round(($new_academies_count/$all_academies_count)*100)}}   @endslot
@@ -27,7 +27,7 @@
 
          @slot('title') المدربين  @endslot
          @slot('iconClass') mdi mdi-gamepad-square  @endslot
-         @slot('price') {{$all_coaches_count}}  @endslot
+         @slot('price') {{\App\Models\User::where('type','COACH')->count()}}  @endslot
          @slot('percentage') {{round(($new_coaches_count/$all_coaches_count)*100)}}%   @endslot
          @slot('pClass') progress-bar bg-success   @endslot
          @slot('pValue') {{round(($new_coaches_count/$all_coaches_count)*100)}}   @endslot

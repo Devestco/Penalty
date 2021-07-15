@@ -33,6 +33,12 @@ class AcademyStoreRequest extends FormRequest
             'ad_id' => 'required|numeric|exists:ads,id',
             'academy_size_id' => 'required|numeric|exists:academy_sizes,id',
             'city' => 'required',
+            'district' => 'required',
+            'lat' => 'nullable',
+            'lng' => 'nullable',
+            'sport_id' => 'nullable|numeric|exists:sports,id',
+            'nationality' => 'nullable',
+            'nationality_id' => 'nullable',
         ];
     }
 

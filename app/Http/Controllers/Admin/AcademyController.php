@@ -7,7 +7,9 @@ use App\Http\Requests\Dashboard\AcademyStoreRequest;
 use App\Models\Academy;
 use App\Models\AcademySize;
 use App\Models\Ad;
+use App\Models\Coach;
 use App\Models\Country;
+use App\Models\Sport;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -28,7 +30,8 @@ class AcademyController extends MasterController
         $countries=Country::all();
         $ads=Ad::all();
         $academy_sizes=AcademySize::all();
-        return view('academy.create',compact('countries','ads','academy_sizes'));
+        $sports=Sport::all();
+        return view('academy.create',compact('countries','ads','academy_sizes','sports'));
     }
     public function store(AcademyStoreRequest $request)
     {
@@ -37,7 +40,15 @@ class AcademyController extends MasterController
         $user=User::create($data);
         $user->assignRole(UserRole::of(UserRole::ROLE_ACADEMY));
         $data['user_id']=$user->id;
-        Academy::create($data);
+        $data['location']=[
+          'lat'=>$request['lat'],
+          'lng'=>$request['lng'],
+        ];
+        $academy=Academy::create($data);
+        $data['academy_id']=$academy->id;
+        if ($request['academy_size_id']==1){
+            Coach::create($data);
+        }
         return redirect()->route('admin.academy.index')->with('created');
     }
     public function show($id):object
