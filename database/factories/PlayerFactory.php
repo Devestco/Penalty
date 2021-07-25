@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Academy;
 use App\Models\Ad;
 use App\Models\Player;
 use Carbon\Carbon;
@@ -25,6 +26,7 @@ class PlayerFactory extends Factory
     {
         $ads = Ad::pluck('id')->toArray();
         return [
+            'academy_id'=>$this->faker->randomElement(Academy::pluck('id')->toArray()),
             'birth_date' => Carbon::now()->subYears(rand(8,25)),
             'nationality'=>$this->faker->country,
             'nationality_id'=>$this->faker->uuid,

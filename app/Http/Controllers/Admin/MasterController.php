@@ -13,8 +13,6 @@ abstract class MasterController extends Controller
 {
     protected $model;
     protected $route;
-    protected $module_name;
-    protected $single_module_name;
 
     public function __construct()
     {

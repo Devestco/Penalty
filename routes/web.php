@@ -49,4 +49,7 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     //courses
     Route::resource('course','CourseController');
 
+    //players-invoices
+    Route::resource('player-invoice','PlayerInvoiceController');
+
 });

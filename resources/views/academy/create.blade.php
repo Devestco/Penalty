@@ -26,33 +26,33 @@
      @method('POST')
         <div class="row">
             <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">البيانات العامة</h4>
-                    <div class="form-group">
-                        <label class="control-label">الاسم</label>
-                        <input required type="text" class="form-control" maxlength="25" name="name" id="alloptions" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">البريد الإلكتروني</label>
-                        <input name="email" type="email" class="form-control" required parsley-type="email" placeholder="Enter a valid e-mail" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">رقم الجوال</label>
-                        <input name="phone" type="text" class="form-control" required maxlength="13" placeholder="+966512345622" />
-                    </div>
-                    <div class="form-group">
-                        <label>كلمة المرور</label>
-                        <div>
-                            <input name="password" type="password" id="pass2" class="form-control" required placeholder="Password" />
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">البيانات العامة</h4>
+                        <div class="form-group">
+                            <label class="control-label">الاسم</label>
+                            <input required type="text" class="form-control" maxlength="25" name="name" id="alloptions" />
                         </div>
-                        <div class="mt-2">
-                            <input type="password" class="form-control" required data-parsley-equalto="#pass2" placeholder="Re-Type Password" />
+                        <div class="form-group">
+                            <label class="control-label">البريد الإلكتروني</label>
+                            <input name="email" type="email" class="form-control" required parsley-type="email" placeholder="Enter a valid e-mail" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">رقم الجوال</label>
+                            <input name="phone" type="text" class="form-control" required maxlength="13" placeholder="+966512345622" />
+                        </div>
+                        <div class="form-group">
+                            <label>كلمة المرور</label>
+                            <div>
+                                <input name="password" type="password" id="pass2" class="form-control" required placeholder="Password" />
+                            </div>
+                            <div class="mt-2">
+                                <input type="password" class="form-control" required data-parsley-equalto="#pass2" placeholder="Re-Type Password" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label for="image">الشعار</label>
                             <div class="card-box">
-                                <input name="avatar" id="input-file-now-custom-1 image" type="file" class="dropify"   />
+                                <input name="avatar" id="input-file-now-custom-1 image" type="file" class="dropify"   data-default-file="{{asset('media/images/logo.jpeg')}}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -87,7 +87,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="card-box">
                             <h4 class="header-title mt-0 mb-3">الموقع</h4>
                             <script async defer
@@ -97,7 +96,6 @@
                             <input name="lat" type="hidden" id="lat">
                             <input name="lng" type="hidden" id="lng">
                         </div>
-
                         <div class="form-group">
                             <label class="control-label">حجم الأكاديمية</label>
                             <select id="academy_size_id" name="academy_size_id" class="form-control select2">
@@ -106,7 +104,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -45,8 +45,8 @@ class AcademyController extends MasterController
           'lng'=>$request['lng'],
         ];
         $academy=Academy::create($data);
-        $data['academy_id']=$academy->id;
         if ($request['academy_size_id']==1){
+            $data['academy_id']=$academy->id;
             Coach::create($data);
         }
         return redirect()->route('admin.academy.index')->with('created');
@@ -63,14 +63,23 @@ class AcademyController extends MasterController
         $ads=Ad::all();
         $academy_sizes=AcademySize::all();
         $row=Academy::find($id);
-        return view('academy.edit', compact('row','countries','ads','academy_sizes'));
+        $sports=Sport::all();
+        return view('academy.edit', compact('row','countries','ads','academy_sizes','sports'));
     }
     public function update($id,Request $request)
     {
         $academy=Academy::find($id);
         $data = $request->all();
-        $academy->update($data);
         $academy->user->update($data);
+        $data['location']=[
+            'lat'=>$request['lat'],
+            'lng'=>$request['lng'],
+        ];
+        $academy->update($data);
+        if ($request['academy_size_id']==1){
+            $academy->user->coach->update($data);
+        }
+
         return redirect()->route('admin.academy.index')->with('updated');
     }
 }

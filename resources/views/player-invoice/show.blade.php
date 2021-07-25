@@ -5,7 +5,7 @@
 @section('content')
 
     @component('common-components.breadcrumb')
-         @slot('title') الأكاديميات  @endslot
+         @slot('title') اللاعبين  @endslot
          @slot('li_1') عرض  @endslot
      @endcomponent
     <?php
@@ -15,24 +15,24 @@
     $sports=\App\Models\Sport::whereIn('id',$sports)->get();
 
     $group_coaches=[];
-    $group_players=[];
-    foreach ($row->groups as $academy_group){
-        $group_coaches[]=$academy_group->coaches->pluck('coach_id')->toArray();
-        $group_players[]=$academy_group->players->pluck('player_id')->toArray();
+    $group_academies=[];
+    foreach ($row->groups as $player_group){
+        $group_coaches[]=$player_group->coaches->pluck('coach_id')->toArray();
+        $group_academies[]=$player_group->academy_id;
     }
 
     $course_coaches=[];
-    $course_players=[];
-    foreach ($row->courses as $academy_course){
-        $course_coaches[]=$academy_course->coaches->pluck('coach_id')->toArray();
-        $course_players[]=$academy_course->players->pluck('player_id')->toArray();
+    $course_academies=[];
+    foreach ($row->courses as $player_course){
+        $course_coaches[]=$player_course->coaches->pluck('coach_id')->toArray();
+        $course_academies[]=$player_course->academy_id;
     }
 
     $coaches_ids=array_merge($group_coaches,$course_coaches);
     $coaches_ids = array_filter($coaches_ids);
 
-    $players_ids=array_merge($group_players,$course_players);
-    $players_ids = array_filter($players_ids);
+    $academies_ids=array_merge($group_academies,$course_academies);
+    $academies_ids = array_filter($academies_ids);
     ?>
         <!-- start row -->
         <div class="row">
@@ -48,7 +48,7 @@
 
                                             <div class="mt-3 ">
                                                 <a href="#" class="text-dark font-weight-medium font-size-16">{{$row->user->name}}</a>
-                                                <p class="text-body mt-1 mb-1">{{$row->academy_size->name}}</p>
+                                                <p class="text-body mt-1 mb-1">{{$row->nationality}}</p>
 {{--                                                <span class="badge badge-success">Follow Me</span>--}}
 {{--                                                <span class="badge badge-danger">Message</span>--}}
                                             </div>
@@ -117,8 +117,8 @@
                                     </div>
 
                                     <div class="mt-3">
-                                        <p class="font-size-12 text-muted mb-1">العنوان</p>
-                                        <h6 class="">{{$row->country->name}}, {{$row->city}}</h6>
+                                        <p class="font-size-12 text-muted mb-1">رقم الهوية</p>
+                                        <h6 class="">{{$row->nationality_id}}</h6>
                                     </div>
 
                                     <div class="mt-3">
@@ -126,17 +126,6 @@
                                         <h6 class="">{{\Carbon\Carbon::parse($row->created_at)->format('Y-m-d')}}</h6>
                                     </div>
 
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3">الموقع</h5>
-                                    <div class="mt-3">
-                                        <script async defer
-                                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjBZsq9Q11itd0Vjz_05CtBmnxoQIEGK8&&callback=initMap" type="text/javascript">
-                                        </script>
-                                        <div id="map" class="gmaps" style="position: relative; overflow: hidden;" data-lat="{{$row->location['lat']}}" data-lng="{{$row->location['lng']}}"></div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="card">
@@ -158,8 +147,8 @@
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col-8">
-                                                    <p class="mb-2">اللاعبين</p>
-                                                    <h4 class="mb-0">{{count($players_ids)}}</h4>
+                                                    <p class="mb-2">الأكاديميات</p>
+                                                    <h4 class="mb-0">{{count($academies_ids)}}</h4>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="text-right">
@@ -204,7 +193,7 @@
                                         <div class="card-body">
                                             <div class="row align-items-center">
                                                 <div class="col-8">
-                                                    <p class="mb-2">الأرباح</p>
+                                                    <p class="mb-2">المستحقات</p>
                                                     <h4 class="mb-0">6,245</h4>
                                                 </div>
                                                 <div class="col-4">
@@ -321,23 +310,4 @@
     <!-- apexcharts -->
     <script src="{{ URL::asset('/libs/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{ URL::asset('/js/pages/profile.init.js')}}"></script>
-    <script type="text/javascript">
-        let map;
-        let marker;
-        function initMap() {
-            // show map
-            let lat_str = document.getElementById('map').getAttribute("data-lat");
-            let long_str = document.getElementById('map').getAttribute("data-lng");
-            let uluru = {lat:parseFloat(lat_str), lng: parseFloat(long_str)};
-            let centerOfOldMap = new google.maps.LatLng(uluru);
-            let oldMapOptions = {
-                center: centerOfOldMap,
-                zoom: 10
-            };
-            map = new google.maps.Map(document.getElementById('map'), oldMapOptions);
-            marker = new google.maps.Marker({position: centerOfOldMap,animation:google.maps.Animation.BOUNCE});
-            marker.setMap(map);
-        }
-        google.maps.event.addDomListener(window, 'load', initMap);
-    </script>
     @endsection

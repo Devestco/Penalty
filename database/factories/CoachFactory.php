@@ -3,13 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Academy;
-use App\Models\AcademySize;
-use App\Models\Ad;
 use App\Models\Coach;
-use App\Models\Country;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class CoachFactory extends Factory
 {
@@ -29,6 +24,11 @@ class CoachFactory extends Factory
     {
         return [
             'sport_id' => 1,
+            'academy_id' => $this->faker->randomElement(Academy::pluck('id')->toArray()),
+            'city' => $this->faker->city,
+            'nationality' => $this->faker->country,
+            'nationality_id' => $this->faker->uuid,
         ];
     }
+
 }

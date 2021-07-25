@@ -25,7 +25,7 @@ class PlayerStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:25',
-            'email' => 'required|email:rfc,dns|max:90|unique:users',
+            'email' => 'required|email|max:90|unique:users',
             'phone' => 'required|unique:users',
             'password' => 'required|string|min:6|max:15',
             'avatar' => 'nullable|image',

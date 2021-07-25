@@ -26,8 +26,9 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' => 'required|string|max:110',
             'email' => 'email:rfc,dns|max:90|unique:users,email,' . \request()->user()->id,
-            'password' => 'nullable|string|min:6|max:15',
-            'image' => 'nullable|mimes:png,jpg,jpeg',
+            'password' => 'required|string|min:6|max:15',
+            'password_confirm' => 'required|same:password',
+            'avatar' => 'nullable|image',
         ];
     }
 
@@ -36,7 +37,7 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'email.unique' => 'هذا البريد مسجل من قبل',
             'email.email' => 'هذا البريد غير صالح',
-            'image' => 'يوجد مشاك بالصورة المرفقة',
+            'avatar' => 'يوجد مشاكل بالصورة المرفقة',
             'password' => 'كلمة المرور يجب ألا تقل عن 6 خانات وﻻ تزيد عن 15 خانة',
         ];
     }

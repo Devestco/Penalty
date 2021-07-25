@@ -16,6 +16,7 @@ class CreateCoursePlayerTable extends Migration
         Schema::create('course_player', function (Blueprint $table) {
             $table->integer('course_id')->unsigned()->index();
             $table->integer('player_id')->unsigned()->index();
+            $table->boolean('payed')->default(false);
             $table->timestamps();
         });
     }

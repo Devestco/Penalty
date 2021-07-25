@@ -63,10 +63,10 @@ class CourseFactory extends Factory
                 $start_date = Carbon::parse($start_date)->addDay();
             }
 
-            $players=Player::inRandomOrder()->take(rand(10,30))->pluck('id')->toArray();
-            $coaches=Course::inRandomOrder()->take(rand(2,3))->pluck('id')->toArray();
-            $course->players()->sync($players);
-            $course->coaches()->sync($coaches);
+//            $players=Player::inRandomOrder()->take(rand(10,30))->pluck('id')->toArray();
+//            $coaches=Course::inRandomOrder()->take(rand(2,3))->pluck('id')->toArray();
+//            $course->players()->sync($players);
+//            $course->coaches()->sync($coaches);
         });
     }
 }

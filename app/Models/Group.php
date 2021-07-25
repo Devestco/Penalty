@@ -35,10 +35,10 @@ class Group extends Model
     }
     public function players()
     {
-        return $this->belongsToMany(Player::class, "group_player", "player_id", "group_id")->withTimestamps();
+        return $this->belongsToMany(Player::class, "group_player", "group_id", "player_id")->withTimestamps();
     }
     public function coaches()
     {
-        return $this->belongsToMany(Coach::class, "group_coach", "coach_id", "group_id")->withTimestamps();
+        return $this->belongsToMany(Coach::class, "group_coach", "group_id", "coach_id")->withTimestamps();
     }
 }

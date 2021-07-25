@@ -52,6 +52,18 @@
                     </ul>
                 </li>
 
+                <li class="menu-title">إدارة الاشتراكات والتحصيل</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-play"></i>
+                        <span>اللاعبين</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin.player-invoice.index')}}">عرض الكل</a></li>
+                    </ul>
+                </li>
+
                 <li class="menu-title">قائمة الفعاليات</li>
 
                 <li>

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Services\FileService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -124,6 +126,41 @@ class User extends Authenticatable implements HasMedia
         return $this->hasOne(Player::class);
     }
 
+    public function credit()
+    {
+        $active_groups=Group::whereBanned(0)->pluck('id')->toArray();
+        $player_groups=DB::table('group_player')->where('player_id',$this->player->id)->whereIn('group_id',$active_groups)->get();
+        $amount=0;
+        foreach ($player_groups as $group_player){
+            $months_list= $this->getMonthListFromDate(Carbon::parse($group_player->created_at));
+            $last_invoices_months=Invoice::where('user_id',$this->id)->where(['model'=>'Group','model_id'=>$group_player->group_id])->pluck('month')->toArray();
+            $debit_months=array_diff($months_list,$last_invoices_months);
+            $group=Group::find($group_player->group_id);
+            if (!$group)
+                return -1;
+            $amount+=$group->price * count($debit_months);
+        }
+        $courses_players=DB::table('course_player')->where('player_id',$this->player->id)->where('payed',false)->get();
+        foreach ($courses_players as $courses_player)
+        {
+            $course=Course::find($courses_player->course_id);
+            if (!$course)
+                return -1;
+            $amount+=$course->price;
+        }
+        return $amount;
+    }
 
-
+    public function getMonthListFromDate(Carbon $date)
+    {
+        $end    = new \DateTime(); // Today date
+        $start      = new \DateTime($date->toDateTimeString()); // Create a datetime object from your Carbon object
+        $interval = \DateInterval::createFromDateString('1 month'); // 1 month interval
+        $period   = new \DatePeriod($start, $interval, $end); // Get a set of date beetween the 2 period
+        $months = array();
+        foreach ($period as $dt) {
+            $months[] = $dt->format("F Y");
+        }
+        return $months;
+    }
 }

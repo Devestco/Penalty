@@ -3,12 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Activity;
-use App\Models\Course;
-use App\Models\CourseDay;
 use App\Models\Group;
 use App\Models\GroupDay;
-use App\Models\Level;
-use App\Models\Player;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -61,10 +57,10 @@ class GroupFactory extends Factory
                 }
                 $start_date = Carbon::parse($start_date)->addDay();
             }
-            $players=Player::inRandomOrder()->take(rand(10,30))->pluck('id')->toArray();
-            $coaches=Course::inRandomOrder()->take(rand(2,3))->pluck('id')->toArray();
-            $group->players()->sync($players);
-            $group->coaches()->sync($coaches);
+//            $players=Player::inRandomOrder()->take(rand(10,30))->pluck('id')->toArray();
+//            $coaches=Course::inRandomOrder()->take(rand(2,3))->pluck('id')->toArray();
+//            $group->players()->sync($players);
+//            $group->coaches()->sync($coaches);
         });
     }
 }
