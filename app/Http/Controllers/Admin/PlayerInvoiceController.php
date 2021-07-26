@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Enums\UserRole;
-use App\Http\Requests\Dashboard\PlayerStoreRequest;
-use App\Models\Academy;
-use App\Models\Ad;
-use App\Models\Coach;
 use App\Models\Course;
 use App\Models\Group;
+use App\Models\Invoice;
 use App\Models\Player;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PlayerInvoiceController extends MasterController
@@ -24,52 +20,73 @@ class PlayerInvoiceController extends MasterController
 
     public function index()
     {
-//        $groups_players=DB::table('group_player')->pluck('player_id')->toArray();
-//        $courses_players=DB::table('course_player')->where('payed',false)->pluck('player_id')->toArray();
-//        $players=array_merge($courses_players,$groups_players);
         $rows = Player::latest()->get();
         return view('player-invoice.index', compact('rows'));
     }
 
-    public function create()
-    {
-        $ads = Ad::all();
-        $academies = Academy::all();
-        return view('player.create', compact('academies','ads'));
-    }
-
-    public function store(PlayerStoreRequest $request)
-    {
-        $data = $request->all();
-        $data['type'] = 'PLAYER';
-        $user = User::create($data);
-        $user->assignRole(UserRole::of(UserRole::ROLE_PLAYER));
-        $data['user_id'] = $user->id;
-        $data['birth_date']=Carbon::parse($request['birth_date']);
-        Player::create($data);
-        return redirect()->route('admin.player.index')->with('created');
-    }
-
-    public function show($id): object
+    public function creditDetails($id)
     {
         $row = Player::find($id);
-        return view('player.show', compact('row'));
+        $active_groups=Group::whereBanned(0)->pluck('id')->toArray();
+        $player_groups=DB::table('group_player')->where('player_id',$row->id)->whereIn('group_id',$active_groups)->get();
+        $player_courses=DB::table('course_player')->where('player_id',$row->id)->get();
+        return view('player-invoice.create-invoice', compact('row','player_groups','player_courses'));
+    }
+    public function invoice($invoice_id)
+    {
+        $invoices=Invoice::where('invoice_id',$invoice_id)->get();
+        $sub_total=Invoice::where('invoice_id',$invoice_id)->sum('amount');
+        $player=$invoices->first()->user->player;
+        return view('player-invoice.invoice', compact('invoice_id','invoices','player','sub_total'));
+    }
+    public function invoicing($id,Request $request)
+    {
+        $player=Player::find($id);
+        $active_groups=Group::whereBanned(0)->pluck('id')->toArray();
+        $player_groups=DB::table('group_player')->where('player_id',$player->id)->whereIn('group_id',$active_groups)->get();
+        $player_courses=DB::table('course_player')->where('player_id',$player->id)->get();
+        $data['user_id']=$player->user_id;
+        $data['cashier_id']=Auth::id();
+        $invoice_id=rand(111111,999999);
+        $data['invoice_id']=$invoice_id;
+        foreach($player_groups as $player_group)
+        {
+            $months_list= $this->getMonthListFromDate(Carbon::parse($player_group->created_at));
+            $last_invoices_months=\App\Models\Invoice::where('user_id',$player->user_id)->where(['model'=>'Group','model_id'=>$player_group->group_id])->pluck('month')->toArray();
+            $debit_months=array_diff($months_list,$last_invoices_months);
+            $group=Group::find($player_group->group_id);
+            $data['model']='Group';
+            $data['model_id']=$group->id;
+            foreach($debit_months as $debit_month)
+            {
+                $data['month']=$debit_month;
+                $data['amount']=$group->price;
+                Invoice::create($data);
+            }
+        }
+        foreach ($player_courses as $player_course)
+        {
+            $course=Course::find($player_course->course_id);
+            $data['month']=null;
+            $data['model']='Course';
+            $data['model_id']=$player_course->course_id;
+            $data['amount']=$course->price;
+            Invoice::create($data);
+        }
+        return redirect()->route('admin.player.invoice',$invoice_id)->with('invoiced');
     }
 
-    public function edit($id): object
+    public function getMonthListFromDate(Carbon $date)
     {
-        $ads = Ad::all();
-        $row = Player::find($id);
-        return view('player.edit', compact('row', 'ads'));
-    }
-
-    public function update($id, Request $request)
-    {
-        $row = Player::find($id);
-        $data = $request->all();
-        $row->update($data);
-        $row->user->update($data);
-        return redirect()->route('admin.player.index')->with('updated');
+        $end    = new \DateTime(); // Today date
+        $start      = new \DateTime($date->toDateTimeString()); // Create a datetime object from your Carbon object
+        $interval = \DateInterval::createFromDateString('1 month'); // 1 month interval
+        $period   = new \DatePeriod($start, $interval, $end); // Get a set of date beetween the 2 period
+        $months = array();
+        foreach ($period as $dt) {
+            $months[] = $dt->format("F Y");
+        }
+        return $months;
     }
 }
 

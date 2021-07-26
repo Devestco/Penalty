@@ -29,7 +29,7 @@
                         <tbody>
                         @foreach($rows as $row)
                             <tr>
-                                <td>{{$row->user->name}}</td>
+                                <td><a href="{{route('admin.player.show',$row->id)}}"> {{$row->user->name}}</a></td>
                                 <td>{{$row->academy->user->name}}</td>
                                 <td>{{$row->user->phone}}</td>
                                 <td data-toggle="modal" data-target="#imgModal{{$row->id}}">
@@ -51,22 +51,11 @@
                                 <td>{{$row->user->credit()}}</td>
                                 <td>
                                     <div class="button-list">
-                                        <a href="{{route('admin.player.show',$row->id)}}">
+                                        @if($row->user->credit()>0)
+                                        <a href="{{route('admin.player-invoice.credit-details',$row->id)}}">
                                             <button class="btn btn-info waves-effect waves-light"> <i class="fa fa-money-bill-wave mr-1"></i> <span>تسديد</span> </button>
                                         </a>
-{{--                                        @if($row->user->banned==0)--}}
-{{--                                            <form class="ban" data-id="{{$row->user->id}}" method="POST" action="{{ route('admin.user.ban',[$row->user->id]) }}">--}}
-{{--                                                @csrf--}}
-{{--                                                {{ method_field('POST') }}--}}
-{{--                                                <button class="btn btn-danger waves-effect waves-light"> <i class="fa fa-archive mr-1"></i> <span>حظر</span> </button>--}}
-{{--                                            </form>--}}
-{{--                                        @else--}}
-{{--                                            <form class="activate" data-id="{{$row->user->id}}" method="POST" action="{{ route('admin.user.activate',[$row->user->id]) }}">--}}
-{{--                                                @csrf--}}
-{{--                                                {{ method_field('POST') }}--}}
-{{--                                                <button class="btn btn-success waves-effect waves-light"> <i class="fa fa-user-clock mr-1"></i> <span>تفعيل</span> </button>--}}
-{{--                                            </form>--}}
-{{--                                        @endif--}}
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

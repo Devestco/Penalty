@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +24,12 @@ class Course extends Model
         'from_date' => 'date',
         'to_date' => 'date',
     ];
-
+    public function getFromDateAttribute(){
+        return Carbon::parse($this->attributes['from_date'])->format('Y/m/d');
+    }
+    public function getToDateAttribute(){
+        return Carbon::parse($this->attributes['to_date'])->format('Y/m/d');
+    }
     public function sport():object
     {
         return $this->belongsTo(Sport::class);

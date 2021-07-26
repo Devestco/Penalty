@@ -50,6 +50,9 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::resource('course','CourseController');
 
     //players-invoices
+    Route::get('invoice/{id}','PlayerInvoiceController@invoice')->name('player.invoice');
+    Route::get('player-invoice/{id}/credit-details','PlayerInvoiceController@creditDetails')->name('player-invoice.credit-details');
+    Route::post('player-invoice/{id}/invoicing','PlayerInvoiceController@invoicing')->name('player-invoice.invoicing');
     Route::resource('player-invoice','PlayerInvoiceController');
 
 });

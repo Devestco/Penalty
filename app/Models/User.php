@@ -146,6 +146,10 @@ class User extends Authenticatable implements HasMedia
             $course=Course::find($courses_player->course_id);
             if (!$course)
                 return -1;
+            $invoiced=\App\Models\Invoice::where('user_id',$this->id)->where(['model'=>'Course','model_id'=>$courses_player->course_id])->first();
+            if ($invoiced){
+                continue;
+            }
             $amount+=$course->price;
         }
         return $amount;
