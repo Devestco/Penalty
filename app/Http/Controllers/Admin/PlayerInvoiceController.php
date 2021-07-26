@@ -24,10 +24,10 @@ class PlayerInvoiceController extends MasterController
 
     public function index()
     {
-        $groups_players=DB::table('group_player')->pluck('player_id')->toArray();
-        $courses_players=DB::table('course_player')->where('payed',false)->pluck('player_id')->toArray();
-        $players=array_merge($courses_players,$groups_players);
-        $rows = Player::whereIn('id',$players)->latest()->get();
+//        $groups_players=DB::table('group_player')->pluck('player_id')->toArray();
+//        $courses_players=DB::table('course_player')->where('payed',false)->pluck('player_id')->toArray();
+//        $players=array_merge($courses_players,$groups_players);
+        $rows = Player::latest()->get();
         return view('player-invoice.index', compact('rows'));
     }
 
