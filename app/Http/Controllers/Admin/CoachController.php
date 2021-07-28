@@ -23,7 +23,11 @@ class CoachController extends MasterController
 
     public function index()
     {
-        $rows = Coach::latest()->get();
+        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+            $rows=Coach::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }else{
+            $rows = Coach::latest()->get();
+        }
         return view('coach.index', compact('rows'));
     }
     public function create()
@@ -41,6 +45,7 @@ class CoachController extends MasterController
         Coach::create($data);
         return redirect()->route('admin.coach.index')->with('created');
     }
+
     public function show($id):object
     {
         $row=Coach::find($id);
@@ -53,6 +58,7 @@ class CoachController extends MasterController
         $row=Coach::find($id);
         return view('coach.edit', compact('row','sports'));
     }
+
     public function update($id,Request $request)
     {
         $row=Coach::find($id);

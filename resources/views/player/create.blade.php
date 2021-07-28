@@ -89,14 +89,18 @@
                                 @endforeach
                             </select>
                         </div>
+                    @if (!in_array('ACADEMY',auth()->user()->getRoleNames()->toArray()))
                         <div class="form-group">
                             <label class="control-label">الأكاديمية</label>
                             <select name="academy_id" class="form-control select2">
-                                @foreach($academies as $academy)
+                                @foreach(\App\Models\Academy::all() as $academy)
                                     <option value="{{$academy->id}}">{{$academy->user->name}}</option>
                                 @endforeach
                             </select>
                         </div>
+                    @else
+                        <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
+                    @endif
                 </div>
             </div>
             <!-- end select2 -->

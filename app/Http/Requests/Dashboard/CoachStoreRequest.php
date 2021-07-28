@@ -33,7 +33,7 @@ class CoachStoreRequest extends FormRequest
             'city' => 'required',
             'nationality' => 'required',
             'nationality_id' => 'required',
-
+            'academy_id' => 'required|numeric|exists:academies,id',
         ];
     }
 

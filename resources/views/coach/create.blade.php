@@ -71,6 +71,23 @@
                                 @endforeach
                             </select>
                         </div>
+                    @if (!in_array('ACADEMY',auth()->user()->getRoleNames()->toArray()))
+                        <div class="form-group">
+                            <label class="control-label">الأكاديمية</label>
+                            <select name="academy_id" class="form-control select2">
+                                @foreach(\App\Models\Academy::all() as $academy)
+                                    <option value="{{$academy->id}}">{{$academy->user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
+                    @endif
+
+                        <div class="form-group">
+                            <label class="control-label">المدينة</label>
+                            <input type="text" class="form-control" maxlength="25" name="city" id="alloptions" />
+                        </div>
                         <div class="form-group">
                             <label class="control-label">الجنسية</label>
                             <input required type="text" class="form-control" maxlength="25" name="nationality" id="alloptions" />

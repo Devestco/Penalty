@@ -12,131 +12,197 @@
                 <p class="text-body mt-1 mb-0 font-size-13">{{auth()->user()->type}}</p>
             </div>
         </div>
+        @if(in_array('SUPER_ADMIN',auth()->user()->getRoleNames()->toArray()) || in_array('ADMIN',auth()->user()->getRoleNames()->toArray()))
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title">قائمة الأعضاء</li>
 
-        <!--- Sidemenu -->
-        <div id="sidebar-menu">
-            <!-- Left Menu Start -->
-            <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title">قائمة الأعضاء</li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-flip-horizontal"></i>
+                            <span>الأكادميات</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.academy.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.academy.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-flip-horizontal"></i>
-                        <span>الأكادميات</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.academy.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.academy.create')}}">إضافة</a></li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-gamepad-square"></i>
+                            <span>المدربين</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.coach.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.coach.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-football"></i>
+                            <span>اللاعبين</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.player.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.player.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">إدارة الاشتراكات والتحصيل</li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-play"></i>
+                            <span>اللاعبين</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.player-invoice.index')}}">عرض الكل</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">قائمة الفعاليات</li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-play"></i>
+                            <span>الجروبات</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.group.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.group.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-play-network"></i>
+                            <span>الكورسات</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.course.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.course.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">قائمة محتويات النظام</li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-flag"></i>
+                            <span>الدول</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.country.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.country.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-box-cutter"></i>
+                            <span>تصنيفات الأكاديميات</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.academy_size.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.academy_size.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-contacts"></i>
+                            <span>وسائل الإعلان</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.ad.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.ad.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-boxing-glove"></i>
+                            <span>الرياضات</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('admin.sport.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.sport.create')}}">إضافة</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        @else
+            <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <li class="menu-title">قائمة الأعضاء</li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-gamepad-square"></i>
+                                <span>المدربين</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('admin.coach.index')}}">عرض الكل</a></li>
+                                <li><a href="{{route('admin.coach.create')}}">إضافة</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-football"></i>
+                                <span>اللاعبين</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('admin.player.index')}}">عرض الكل</a></li>
+                                <li><a href="{{route('admin.player.create')}}">إضافة</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">إدارة الاشتراكات والتحصيل</li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-play"></i>
+                                <span>اللاعبين</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('admin.player-invoice.index')}}">عرض الكل</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="menu-title">قائمة الفعاليات</li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-play"></i>
+                                <span>الجروبات</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('admin.group.index')}}">عرض الكل</a></li>
+                                <li><a href="{{route('admin.group.create')}}">إضافة</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-play-network"></i>
+                                <span>الكورسات</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('admin.course.index')}}">عرض الكل</a></li>
+                                <li><a href="{{route('admin.course.create')}}">إضافة</a></li>
+                            </ul>
+                        </li>
+
+
                     </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-gamepad-square"></i>
-                        <span>المدربين</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.coach.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.coach.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-football"></i>
-                        <span>اللاعبين</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.player.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.player.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-title">إدارة الاشتراكات والتحصيل</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-play"></i>
-                        <span>اللاعبين</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.player-invoice.index')}}">عرض الكل</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-title">قائمة الفعاليات</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-play"></i>
-                        <span>الجروبات</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.group.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.group.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-play-network"></i>
-                        <span>الكورسات</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.course.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.course.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li class="menu-title">قائمة محتويات النظام</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-flag"></i>
-                        <span>الدول</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.country.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.country.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-box-cutter"></i>
-                        <span>تصنيفات الأكاديميات</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.academy_size.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.academy_size.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-contacts"></i>
-                        <span>وسائل الإعلان</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.ad.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.ad.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="mdi mdi-boxing-glove"></i>
-                        <span>الرياضات</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{route('admin.sport.index')}}">عرض الكل</a></li>
-                        <li><a href="{{route('admin.sport.create')}}">إضافة</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-        <!-- Sidebar -->
+                </div>
+        @endif
     </div>
 </div>
 <!-- Left Sidebar End -->

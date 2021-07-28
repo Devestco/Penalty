@@ -20,7 +20,11 @@ class PlayerInvoiceController extends MasterController
 
     public function index()
     {
-        $rows = Player::latest()->get();
+        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+            $rows=Player::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }else{
+            $rows = Player::latest()->get();
+        }
         return view('player-invoice.index', compact('rows'));
     }
 

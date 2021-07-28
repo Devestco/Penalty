@@ -96,7 +96,7 @@
                             @endforeach
                         @endforeach
                             <tr>
-                                <td colspan="2" class="text-right">Sub Total</td>
+                                <td colspan="2" class="text-right">الاجمالي الفرعي</td>
                                 <td class="text-right">{{$sub_total}} ريال </td>
                             </tr>
                             <tr>

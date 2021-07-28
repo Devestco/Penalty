@@ -6,6 +6,7 @@ use App\Http\Enums\UserRole;
 use App\Http\Requests\Dashboard\PlayerStoreRequest;
 use App\Models\Academy;
 use App\Models\Ad;
+use App\Models\Coach;
 use App\Models\Player;
 use App\Models\User;
 use Carbon\Carbon;
@@ -20,7 +21,11 @@ class PlayerController extends MasterController
 
     public function index()
     {
-        $rows = Player::latest()->get();
+        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+            $rows=Player::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }else{
+            $rows = Player::latest()->get();
+        }
         return view('player.index', compact('rows'));
     }
 
