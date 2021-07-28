@@ -23,7 +23,11 @@ class GroupController extends MasterController
 
     public function index()
     {
-        $rows = Group::latest()->get();
+        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+            $rows=Group::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }else{
+            $rows = Group::latest()->get();
+        }
         return view('group.index', compact('rows'));
     }
 

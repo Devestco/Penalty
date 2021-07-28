@@ -37,14 +37,18 @@
                         <label class="control-label">السعر</label>
                         <input required type="number" class="form-control" name="price" min="0"  />
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">الأكاديمية</label>
-                        <select name="academy_id" class="form-control select2">
-                            @foreach($academies as $academy)
-                                <option value="{{$academy->id}}">{{$academy->user->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if (!in_array('ACADEMY',auth()->user()->getRoleNames()->toArray()))
+                        <div class="form-group">
+                            <label class="control-label">الأكاديمية</label>
+                            <select name="academy_id" class="form-control select2">
+                                @foreach(\App\Models\Academy::all() as $academy)
+                                    <option value="{{$academy->id}}">{{$academy->user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
+                    @endif
                     <div class="form-group">
                         <label class="control-label">الرياضة</label>
                         <select name="sport_id" class="form-control select2">

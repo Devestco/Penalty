@@ -23,7 +23,11 @@ class CourseController extends MasterController
 
     public function index()
     {
-        $rows = Course::latest()->get();
+        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+            $rows=Course::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }else{
+            $rows = Course::latest()->get();
+        }
         return view('course.index', compact('rows'));
     }
 
