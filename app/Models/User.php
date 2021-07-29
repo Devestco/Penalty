@@ -26,6 +26,7 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $fillable = [
+        'admin_id',
         'type',
         'avatar',
         'name',
@@ -111,6 +112,10 @@ class User extends Authenticatable implements HasMedia
         $this->attributes['password'] = bcrypt($password);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(User::class,'admin_id','id');
+    }
     public function academy()
     {
         return $this->hasOne(Academy::class);

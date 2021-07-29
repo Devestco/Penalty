@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdsTableSeeder::class);
         $this->call(SportsTableSeeder::class);
         $this->call(ActivitiesTableSeeder::class);
+        $this->call(PermissionSeeder::class);
         $this->call(UserSeeder::class);
         $courses=Course::all();
         foreach ($courses as $course){

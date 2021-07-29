@@ -21,10 +21,16 @@ class PlayerController extends MasterController
 
     public function index()
     {
-        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+        if (auth()->user()->type=='ACADEMY'){
             $rows=Player::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }elseif (auth()->user()->type=='ADMIN'){
+            if (in_array('ADMIN',auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type=='ACADEMY'){
+                $rows=Player::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+            }else{
+                $rows = Player::all();
+            }
         }else{
-            $rows = Player::latest()->get();
+            return view('errors.403');
         }
         return view('player.index', compact('rows'));
     }

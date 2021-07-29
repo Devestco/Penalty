@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -48,8 +49,10 @@ class UserSeeder extends Seeder
             'password' => "secret",
             'remember_token' => Str::random(10),
         ]);
-        $user->assignRole(UserRole::of(UserRole::ROLE_SUPER_ADMIN));
-        $user->assignRole(UserRole::of(UserRole::ROLE_ADMIN));
+        $role=Role::where('name',UserRole::of(UserRole::ROLE_SUPER_ADMIN))->first();
+        $permissions=Permission::whereIn('id',[1,2,3,4,5,6,7,8])->pluck('id')->toArray();
+        $role->syncPermissions($permissions);
+        $user->assignRole($role);
     }
 
     private function createAcademy()

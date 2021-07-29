@@ -7,6 +7,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserFactory extends Factory
 {
@@ -28,7 +30,7 @@ class UserFactory extends Factory
             'phone' => '05'.rand(11111111,99999999),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'secret',
             'remember_token' => Str::random(10),
             'last_ip'=>$this->faker->localIpv4,
             'created_at'=>Carbon::now()->subMonths(rand(1,12)),
@@ -53,10 +55,12 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterMaking(function (User $user) {
-//            $user->assignRole(UserRole::of(UserRole::ROLE_ACADEMY));
         })->afterCreating(function (User $user) {
             if ($user->type=='ACADEMY'){
-                $user->assignRole(UserRole::of(UserRole::ROLE_ACADEMY));
+                $role=Role::where('name',UserRole::of(UserRole::ROLE_ACADEMY))->first();
+                $permissions=Permission::whereIn('id',[1,3,4,5,6,7])->pluck('id')->toArray();
+                $role->syncPermissions($permissions);
+                $user->assignRole($role);
             }elseif ($user->type=='COACH'){
                 $user->assignRole(UserRole::of(UserRole::ROLE_COACH));
             }elseif ($user->type=='PLAYER'){

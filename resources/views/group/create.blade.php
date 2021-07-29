@@ -37,7 +37,7 @@
                         <label class="control-label">السعر</label>
                         <input required type="number" class="form-control" name="price" min="0"  />
                     </div>
-                    @if (!in_array('ACADEMY',auth()->user()->getRoleNames()->toArray()))
+                    @if (in_array('SUPER_ADMIN',auth()->user()->getRoleNames()->toArray()))
                         <div class="form-group">
                             <label class="control-label">الأكاديمية</label>
                             <select name="academy_id" class="form-control select2">
@@ -47,7 +47,11 @@
                             </select>
                         </div>
                     @else
-                        <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
+                        @if(auth()->user()->type=='ADMIN')
+                            <input hidden name="academy_id" value="{{auth()->user()->admin->academy->id}}">
+                        @else
+                            <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
+                        @endif
                     @endif
                     <div class="form-group">
                         <label class="control-label">الرياضة</label>

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') إضافة مدرب @endsection
+@section('title') إضافة مدير @endsection
 @section('css')
 <link href="{{URL::asset('libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{URL::asset('libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
@@ -10,8 +10,8 @@
 @endsection
 @section('content')
  @component('common-components.breadcrumb')
-         @slot('title') المدربين  @endslot
-         @slot('li_1') إضافة مدرب  @endslot
+         @slot('title') مديري النظام  @endslot
+         @slot('li_1') إضافة مدير  @endslot
  @endcomponent
  @if($errors->any())
      <div class="alert alert-danger" role="alert">
@@ -21,9 +21,10 @@
          @endforeach
      </div>
  @endif
- <form method="POST" action="{{route('admin.coach.store')}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+ <form method="POST" action="{{route('admin.admins.store')}}" enctype="multipart/form-data" data-parsley-validate novalidate>
      @csrf
      @method('POST')
+     <input hidden name="admin_id" value="{{auth()->id()}}">
         <div class="row">
             <div class="col-lg-6">
             <div class="card">
@@ -56,49 +57,20 @@
             <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">بيانات المدرب</h4>
+                    <h4 class="card-title">الصلاحيات</h4>
                         <div class="form-group">
                             <label for="image">الصورة الشخصية</label>
                             <div class="card-box">
                                 <input name="avatar" id="input-file-now-custom-1 image" type="file" class="dropify"   />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">الرياضة</label>
-                            <select name="sport_id" class="form-control select2">
-                                @foreach($sports as $sport)
-                                    <option value="{{$sport->id}}">{{$sport->name}}</option>
+                        <div class="form-group mb-0">
+                            <label class="control-label">الصلاحيات</label>
+                            <select name="permissions[]" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
+                                @foreach($permissions as $permission)
+                                    <option value="{{$permission->id}}">{{$permission->slug}}</option>
                                 @endforeach
                             </select>
-                        </div>
-                    @if (in_array('SUPER_ADMIN',auth()->user()->getRoleNames()->toArray()))
-                        <div class="form-group">
-                            <label class="control-label">الأكاديمية</label>
-                            <select name="academy_id" class="form-control select2">
-                                @foreach(\App\Models\Academy::all() as $academy)
-                                    <option value="{{$academy->id}}">{{$academy->user->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @else
-                        @if(auth()->user()->type=='ADMIN')
-                            <input hidden name="academy_id" value="{{auth()->user()->admin->academy->id}}">
-                        @else
-                            <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
-                        @endif
-                    @endif
-
-                        <div class="form-group">
-                            <label class="control-label">المدينة</label>
-                            <input type="text" class="form-control" maxlength="25" name="city" id="alloptions" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">الجنسية</label>
-                            <input required type="text" class="form-control" maxlength="25" name="nationality" id="alloptions" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">رقم الهوية</label>
-                            <input required type="text" class="form-control" maxlength="50" name="nationality_id" id="alloptions" />
                         </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ use App\Models\AcademySize;
 use App\Models\Ad;
 use App\Models\Coach;
 use App\Models\Country;
+use App\Models\Player;
 use App\Models\Sport;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,11 +24,18 @@ class CoachController extends MasterController
 
     public function index()
     {
-        if (in_array('ACADEMY',auth()->user()->getRoleNames()->toArray())){
+        if (auth()->user()->type=='ACADEMY'){
             $rows=Coach::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }elseif (auth()->user()->type=='ADMIN'){
+            if (in_array('ADMIN',auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type=='ACADEMY'){
+                $rows=Coach::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+            }else{
+                $rows = Coach::all();
+            }
         }else{
-            $rows = Coach::latest()->get();
+            return view('errors.403');
         }
+
         return view('coach.index', compact('rows'));
     }
     public function create()

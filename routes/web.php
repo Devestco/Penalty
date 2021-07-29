@@ -20,6 +20,8 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::put('/profile', 'AdminController@updateProfile')->name('profile.update');
     Route::get('/', 'HomeController@index')->name('home');
 
+    Route::resource('admins', 'AdminsController');
+
     Route::post('user/{id}/ban', 'UserController@ban')->name('user.ban');
     Route::post('user/{id}/activate', 'UserController@activate')->name('user.activate');
     //countries

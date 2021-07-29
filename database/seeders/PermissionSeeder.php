@@ -14,85 +14,48 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create([
-            'name'=>'roles',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الصلاحيات'
-        ]);
+        //academy=1,3,4,5,6,7
+        //super=1,2,3,4,5,6,7,8
         Permission::create([
             'name'=>'admins',
-            'guard_name'=>'admin',
+            'guard_name'=>'web',
             'slug'=>'إدارة أعضاء الإدارة'
         ]);
         Permission::create([
             'name'=>'academies',
-            'guard_name'=>'admin',
+            'guard_name'=>'web',
             'slug'=>'إدارة الأكاديميات'
         ]);
         Permission::create([
-            'name'=>'providers',
-            'guard_name'=>'admin',
+            'name'=>'coaches',
+            'guard_name'=>'web',
             'slug'=>'إدارة المدربين'
         ]);
         Permission::create([
-            'name'=>'deliveries',
-            'guard_name'=>'admin',
+            'name'=>'players',
+            'guard_name'=>'web',
             'slug'=>'إدارة اللاعبين'
         ]);
         Permission::create([
-            'name'=>'products',
-            'guard_name'=>'admin',
+            'name'=>'invoices',
+            'guard_name'=>'web',
             'slug'=>'إدارة الاشتراكات'
         ]);
         Permission::create([
-            'name'=>'categories',
-            'guard_name'=>'admin',
+            'name'=>'groups',
+            'guard_name'=>'web',
             'slug'=>'إدارة الجروبات'
         ]);
         Permission::create([
-            'name'=>'orders',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الطلبات'
-        ]);
-        Permission::create([
-            'name'=>'notifications',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الإشعارات الجماعية'
-        ]);
-        Permission::create([
-            'name'=>'wallet_pays',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الحوالات البنكية'
-        ]);
-        Permission::create([
-            'name'=>'contacts',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة رسائل الأعضاء'
+            'name'=>'courses',
+            'guard_name'=>'web',
+            'slug'=>'إدارة الكورسات'
         ]);
         Permission::create([
             'name'=>'settings',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الإعدادات العامة'
+            'guard_name'=>'web',
+            'slug'=>'إدارة محتويات النظام'
         ]);
-        Permission::create([
-            'name'=>'pages',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الصفحات التعريفية'
-        ]);
-        Permission::create([
-            'name'=>'banks',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الحسابات البنكية'
-        ]);
-        Permission::create([
-            'name'=>'story_periods',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة أسعار الحالات'
-        ]);
-        Permission::create([
-            'name'=>'sliders',
-            'guard_name'=>'admin',
-            'slug'=>'إدارة الإعلانات'
-        ]);
+
     }
 }

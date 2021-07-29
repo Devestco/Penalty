@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -28,6 +30,12 @@ class LoginController extends Controller
     {
         $this->validator($request);
         if(Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
+            Auth::guard('admin')->user()->update([
+               'last_ip'=>$request->ip(),
+               'last_session_id'=>session()->getId(),
+               'last_login_at'=>Carbon::now(),
+               'remember_token'=>Str::random(10),
+            ]);
             return redirect()
                 ->intended(route('admin.home'))
                 ->with('status','You are Logged in as Admin!');

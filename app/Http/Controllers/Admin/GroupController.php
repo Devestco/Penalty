@@ -35,8 +35,20 @@ class GroupController extends MasterController
     {
         $sports = Sport::all();
         $academies = Academy::all();
-        $coaches = Coach::all();
-        $players = Player::all();
+        if (auth()->user()->type=='ACADEMY'){
+            $coaches=Coach::where('academy_id',auth()->user()->academy->id)->latest()->get();
+            $players=Player::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }elseif (auth()->user()->type=='ADMIN'){
+            if (in_array('ADMIN',auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type=='ACADEMY'){
+                $coaches=Coach::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+                $players=Player::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+            }else{
+                $coaches = Coach::all();
+                $players = Player::all();
+            }
+        }else{
+            return view('errors.403');
+        }
         return view('group.create', compact('academies', 'sports','coaches','players'));
     }
 
