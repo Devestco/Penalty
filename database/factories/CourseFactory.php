@@ -6,6 +6,7 @@ use App\Models\Activity;
 use App\Models\Course;
 use App\Models\CourseDay;
 use App\Models\Player;
+use App\Models\Sport;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,9 +33,10 @@ class CourseFactory extends Factory
         ];
         $startDate = Carbon::createFromTimeStamp($this->faker->dateTimeBetween('-200 days', '+30 days')->getTimestamp());
         $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $startDate)->addMonth();
+        $sports=Sport::pluck('id')->toArray();
         return [
             'name' => $this->faker->title,
-            'sport_id' => 1,
+            'sport_id' => $this->faker->randomElement($sports),
             'from_date' => $startDate,
             'to_date' => $endDate,
             'price' => rand(100, 1000),

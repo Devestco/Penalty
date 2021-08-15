@@ -133,7 +133,20 @@ class User extends Authenticatable implements HasMedia
 
     public function credit()
     {
-        $active_groups=Group::whereBanned(0)->pluck('id')->toArray();
+        if (auth()->user()->type=='ACADEMY'){
+            $active_groups=Group::where('academy_id',auth()->user()->academy->id)->whereBanned(0)->pluck('id')->toArray();
+            $active_courses=Course::where('academy_id',auth()->user()->academy->id)->whereBanned(0)->pluck('id')->toArray();
+        }elseif (auth()->user()->type=='ADMIN'){
+            if (in_array('ADMIN',auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type=='ACADEMY'){
+                $active_groups=Group::where('academy_id',auth()->user()->admin->academy->id)->whereBanned(0)->pluck('id')->toArray();
+                $active_courses=Course::where('academy_id',auth()->user()->admin->academy->id)->whereBanned(0)->pluck('id')->toArray();
+            }else{
+                $active_groups=Group::whereBanned(0)->pluck('id')->toArray();
+                $active_courses=Course::whereBanned(0)->pluck('id')->toArray();
+            }
+        }else{
+            return view('errors.403');
+        }
         $player_groups=DB::table('group_player')->where('player_id',$this->player->id)->whereIn('group_id',$active_groups)->get();
         $amount=0;
         foreach ($player_groups as $group_player){
@@ -145,7 +158,7 @@ class User extends Authenticatable implements HasMedia
                 return -1;
             $amount+=$group->price * count($debit_months);
         }
-        $courses_players=DB::table('course_player')->where('player_id',$this->player->id)->where('payed',false)->get();
+        $courses_players=DB::table('course_player')->where('player_id',$this->player->id)->whereIn('course_id',$active_courses)->where('payed',false)->get();
         foreach ($courses_players as $courses_player)
         {
             $course=Course::find($courses_player->course_id);

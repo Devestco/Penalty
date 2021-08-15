@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Activity;
 use App\Models\Group;
 use App\Models\GroupDay;
+use App\Models\Sport;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,9 +30,10 @@ class GroupFactory extends Factory
             ['Wednesday', 'Monday', 'Saturday'],
             ['Tuesday', 'Thursday'],
         ];
+        $sports=Sport::pluck('id')->toArray();
         return [
             'name' => $this->faker->title,
-            'sport_id' => 1,
+            'sport_id' => $this->faker->randomElement($sports),
             'price' => rand(100, 1000),
             'days' => $this->faker->randomElement($days),
             'created_at' => Carbon::now()->subMonths(rand(8, 10)),

@@ -10,7 +10,7 @@
                                                             {{$percentage}} <i class="mdi mdi-arrow-up text-success ml-1"></i>
                                                         </div>
                                                         <div class="progress progress-sm mt-3">
-                                                            <div class="{{$pClass}}" role="progressbar" style="width: 62%" aria-valuenow="{{ $pValue }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="{{$pClass}}" role="progressbar" style="width: {{ $percentage }}%" aria-valuenow="{{ $pValue }}" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
                                                 </div>

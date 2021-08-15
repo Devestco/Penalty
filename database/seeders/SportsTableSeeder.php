@@ -17,15 +17,15 @@ class SportsTableSeeder extends Seeder
         Sport::create([
             'name' => 'كرة قدم',
         ]);
-//        Sport::create([
-//            'name' => 'كرة سلة',
-//        ]);
-//        Sport::create([
-//            'name' => 'كرة طائرة',
-//        ]);
-//        Sport::create([
-//            'name' => 'سباحة',
-//        ]);
+        Sport::create([
+            'name' => 'كرة سلة',
+        ]);
+        Sport::create([
+            'name' => 'كرة طائرة',
+        ]);
+        Sport::create([
+            'name' => 'سباحة',
+        ]);
 
     }
 }
