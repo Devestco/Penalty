@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('admin.home');
-});
+    return view('landing-page');
+})->name('landing');
 
 Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function() {
     Route::namespace('Auth')->group(function(){

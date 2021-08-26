@@ -152,20 +152,24 @@ class HomeController extends MasterController
         $course_ids = Course::where('academy_id', $academy_id)->pluck('id')->toArray();
 
         $all_players_count = Player::where('academy_id', $academy_id)->count();
+        $all_players_count = $all_players_count==0?1:$all_players_count;
         $new_players_count = Player::where('academy_id', $academy_id)->where('created_at','>',Carbon::now()->subMonth())->count();
         $new_players_ratio = round(($new_players_count/$all_players_count)*100);
 
         $all_group_subscribes_count = DB::table('group_player')->whereIn('group_id', $group_ids)->count();
+        $all_group_subscribes_count = $all_group_subscribes_count==0?1:$all_group_subscribes_count;
         $new_group_subscribes_count = DB::table('group_player')->whereIn('group_id', $group_ids)->where('created_at','>',Carbon::now()->subMonth())->count();
         $new_group_subscribes_ratio = round(($new_group_subscribes_count/$all_group_subscribes_count)*100);
 
         $all_course_subscribes_count = DB::table('course_player')->whereIn('course_id', $course_ids)->count();
+        $all_course_subscribes_count = $all_course_subscribes_count==0?1:$all_course_subscribes_count;
         $new_course_subscribes_count = DB::table('course_player')->whereIn('course_id', $course_ids)->where('created_at','>',Carbon::now()->subMonth())->count();
         $new_course_subscribes_ratio = round(($new_course_subscribes_count/$all_course_subscribes_count)*100);
 
         $group_invoices_count = Invoice::where('model','Group')->whereIn('model_id', $group_ids)->sum('amount');
         $course_invoices_count = Invoice::where('model','Course')->whereIn('model_id', $course_ids)->sum('amount');
         $all_invoices_amount=$group_invoices_count+$course_invoices_count;
+        $all_invoices_amount=$all_invoices_amount==0?1:$all_invoices_amount;
         $new_group_invoices_count = Invoice::where('model','Group')->whereIn('model_id', $group_ids)->where('created_at','>',Carbon::now()->subMonth())->sum('amount');
         $new_course_invoices_count = Invoice::where('model','Course')->whereIn('model_id', $course_ids)->where('created_at','>',Carbon::now()->subMonth())->sum('amount');
         $new_invoices_amount=$new_group_invoices_count+$new_course_invoices_count;
