@@ -106,10 +106,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">البيانات العامة</h5>
-                                    <div class="mt-3">
-                                        <p class="font-size-12 text-muted mb-1">البريد الإلكتروني</p>
-                                        <h6 class="">{{$row->user->email}}</h6>
-                                    </div>
+{{--                                    <div class="mt-3">--}}
+{{--                                        <p class="font-size-12 text-muted mb-1">البريد الإلكتروني</p>--}}
+{{--                                        <h6 class="">{{$row->user->email}}</h6>--}}
+{{--                                    </div>--}}
 
                                     <div class="mt-3">
                                         <p class="font-size-12 text-muted mb-1">الهاتف</p>

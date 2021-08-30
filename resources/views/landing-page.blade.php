@@ -25,19 +25,18 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">خدماتنا</a>
+                    <a class="nav-link" href="#">خدماتنا</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#about">من نحن</a>
+                    <a class="nav-link" href="#about">من نحن</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#prices">خطة الاسعار</a>
-                  </li>
-
-
+                </li>
               </ul>
               <form class="form-inline my-2 my-lg-0 ">
                 <a href="{{route('admin.home')}}" class="btn login-btn  my-2 my-sm-0" type="submit">تسجيل الدخول</a>
+                <a href="{{route('admin.register')}}" class="btn  inroll-btn my-2 my-sm-0" type="submit">اشترك الان</a>
 {{--                <button class="btn  inroll-btn my-2 my-sm-0" type="submit">اشترك الان</button>--}}
               </form>
             </div>
@@ -48,8 +47,9 @@
         <div class="col-md-6">
             <div class="main-text">
                 <h1>المساعد الأول <br> لإدارة النوادي الرياضية</h1>
-                <p>برنامج متخصص في كل ما يخص إدارة النوادي الرياضية و متابعة التمارين <br> و تطور أداء اللاعبين وتتبع المدفوعات</p>
-{{--                <button class="btn  order-btn " type="submit">اشترك الان</button>--}}
+                <p>برنامج متخصص في كل ما يخص إدارة النوادي الرياضية و متابعة التمارين  و تطور أداء اللاعبين وتتبع المدفوعات</p>
+                <a href="{{route('admin.register')}}" class="btn  order-btn" type="submit">اشترك الان</a>
+
             </div>
         </div>
         <div class="col-md-6"></div>

@@ -30,6 +30,13 @@ class LoginController extends Controller
     {
         $this->validator($request);
         if(Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
+//            if (Auth::guard('admin')->user()->banned==1){
+//                Auth::guard('admin')->logout();
+//                return redirect()
+//                    ->route('admin.login')
+//                    ->withInput()
+//                    ->withErrors(['حسابك معلق لحين مراجعة الإدارة لبياناتك ..']);
+//            }
             Auth::guard('admin')->user()->update([
                'last_ip'=>$request->ip(),
                'last_session_id'=>session()->getId(),

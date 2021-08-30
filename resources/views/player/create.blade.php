@@ -33,10 +33,10 @@
                         <label class="control-label">الاسم</label>
                         <input required type="text" class="form-control" maxlength="25" name="name" id="alloptions" />
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">البريد الإلكتروني</label>
-                        <input name="email" type="email" class="form-control" required parsley-type="email" placeholder="Enter a valid e-mail" />
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label class="control-label">البريد الإلكتروني</label>--}}
+{{--                        <input name="email" type="email" class="form-control" required parsley-type="email" placeholder="Enter a valid e-mail" />--}}
+{{--                    </div>--}}
                     <div class="form-group">
                         <label class="control-label">رقم الجوال</label>
                         <input name="phone" type="text" class="form-control" required maxlength="13" placeholder="+966512345622" />

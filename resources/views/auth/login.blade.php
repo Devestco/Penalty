@@ -9,7 +9,7 @@
 
     @section('content')
     <div class="home-btn d-none d-sm-block">
-        <a href="#" class="text-dark"><i class="fas fa-home h2"></i></a>
+        <a href="{{route('landing')}}" class="text-dark"><i class="fas fa-home h2"></i></a>
     </div>
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
@@ -22,7 +22,7 @@
                                 <h5 class="text-white font-size-20">مرحبا !</h5>
                                 <p class="text-white-50 mb-0">قم بإدخال بياناتك  {{config('app.name', 'Laravel')}}.</p>
                                 <a href="#" class="logo logo-admin mt-4">
-                                    <img src="{{asset('images/logo-sm-dark.png')}}" alt="" height="30">
+                                    <img src="{{asset('img/logo.png')}}" alt="" height="30">
                                 </a>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="mt-5 text-center">
-{{--                        <p>Don't have an account ? <a href="register" class="font-weight-medium text-primary"> Signup now </a> </p>--}}
+                        <p>Don't have an account ? <a href="{{route('admin.register')}}" class="font-weight-medium text-primary"> Signup now </a> </p>
                         <p>© <script>
                                 document.write(new Date().getFullYear())
                             </script> {{config('app.name', 'Laravel')}}. Crafted with <i class="mdi mdi-heart text-danger"></i> by DevEst</p>

@@ -8,6 +8,9 @@ Route::get('/', function () {
 
 Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function() {
     Route::namespace('Auth')->group(function(){
+        Route::get('/register','RegisterController@showRegisterForm')->name('register');
+        Route::post('/register','RegisterController@register')->name('register.submit');
+
         Route::get('/login','LoginController@showLoginForm')->name('login');
         Route::post('/login','LoginController@login')->name('login.submit');
         Route::post('/logout','LoginController@logout')->name('logout');
