@@ -9,7 +9,7 @@
     <meta content="Themesbrand" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ URL::asset('images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{asset('img/logo.png')}}">
     @include('layouts.head')
 </head>
 

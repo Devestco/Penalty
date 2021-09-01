@@ -9,8 +9,11 @@ use App\Models\AcademySize;
 use App\Models\Ad;
 use App\Models\Coach;
 use App\Models\Country;
+use App\Models\Notification;
 use App\Models\Sport;
 use App\Models\User;
+use Carbon\Carbon;
+use Edujugon\PushNotification\PushNotification;
 use Illuminate\Http\Request;
 
 class AcademyController extends MasterController
@@ -22,8 +25,12 @@ class AcademyController extends MasterController
 
     public function index()
     {
-        $rows = Academy::latest()->get();
+        $rows = Academy::where('status','approved')->latest()->get();
         return view('academy.index', compact('rows'));
+    }
+    public function waiting(){
+        $rows = Academy::where('status','pending')->get();
+        return view('academy.waiting', compact('rows'));
     }
     public function create()
     {
@@ -81,6 +88,31 @@ class AcademyController extends MasterController
         }
 
         return redirect()->route('admin.academy.index')->with('updated');
+    }
+
+    public function accept($id)
+    {
+        $academy = Academy::find($id);
+        $academy->update(
+            [
+                'status'=>'approved' ,
+            ]
+        );
+        $academy->refresh();
+        return redirect()->back()->with('updated');
+    }
+
+    public function reject($id, Request $request): object
+    {
+        $academy = Academy::find($id);
+        $academy->update(
+            [
+                'status'=>'rejected' ,
+                'reject_reason' => $request['reject_reason'],
+            ]
+        );
+        $academy->refresh();
+        return redirect()->back()->with('updated');
     }
 }
 

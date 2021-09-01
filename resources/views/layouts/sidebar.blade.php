@@ -38,6 +38,7 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="{{route('admin.academy.index')}}">عرض الكل</a></li>
+                            <li><a href="{{route('admin.academy.waiting')}}">الطلبات المعلقة</a></li>
                             <li><a href="{{route('admin.academy.create')}}">إضافة</a></li>
                         </ul>
                     </li>

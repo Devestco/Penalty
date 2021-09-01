@@ -17,6 +17,8 @@ class Academy extends Model
         'district',
         'location',
         'academy_size_id',
+        'status',
+        'reject_reason',
     ];
     protected $casts = [
         'location' => 'json',

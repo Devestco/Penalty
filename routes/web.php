@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing-page');
 })->name('landing');
-
+Route::get('/register','App\Http\Controllers\RegisterController@showRegisterForm')->name('register');
+Route::post('/register','App\Http\Controllers\RegisterController@register')->name('register.submit');
 Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function() {
     Route::namespace('Auth')->group(function(){
         Route::get('/register','RegisterController@showRegisterForm')->name('register');
@@ -44,7 +45,11 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::post('sport/{id}/activate', 'SportController@activate')->name('sport.activate');
     Route::resource('sport','SportController');
     //academies
+    Route::get('academy/{id}/reject', 'AcademyController@reject')->name('academy.reject');
+    Route::get('academy/{id}/accept', 'AcademyController@accept')->name('academy.accept');
     Route::resource('academy','AcademyController');
+    Route::get('academy-waiting','AcademyController@waiting')->name('academy.waiting');
+
     //coaches
     Route::resource('coach','CoachController');
     //players

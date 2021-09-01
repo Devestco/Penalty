@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="sa3d01" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="shortcut icon" href="{{ URL::asset('images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{asset('img/logo.png')}}">
     @include('layouts.head')
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;900&display=swap" rel="stylesheet">

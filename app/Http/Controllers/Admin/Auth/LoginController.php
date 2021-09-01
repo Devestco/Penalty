@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academy;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -30,13 +31,20 @@ class LoginController extends Controller
     {
         $this->validator($request);
         if(Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
-//            if (Auth::guard('admin')->user()->banned==1){
-//                Auth::guard('admin')->logout();
-//                return redirect()
-//                    ->route('admin.login')
-//                    ->withInput()
-//                    ->withErrors(['حسابك معلق لحين مراجعة الإدارة لبياناتك ..']);
-//            }
+            $academy=Academy::where('user_id',Auth::guard('admin')->id())->first();
+            if ($academy->status=='pending'){
+                Auth::guard('admin')->logout();
+                return redirect()
+                    ->route('admin.login')
+                    ->withInput()
+                    ->withErrors(['حسابك معلق لحين مراجعة الإدارة لبياناتك ..']);
+            }elseif ($academy->status=='rejected'){
+                Auth::guard('admin')->logout();
+                return redirect()
+                    ->route('admin.login')
+                    ->withInput()
+                    ->withErrors(['تم رفض طلب تسجيلك للسبب التالي: '.$academy->reject_reason]);
+            }
             Auth::guard('admin')->user()->update([
                'last_ip'=>$request->ip(),
                'last_session_id'=>session()->getId(),
