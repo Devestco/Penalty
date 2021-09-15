@@ -202,6 +202,16 @@ class HomeController extends MasterController
             $second_chart_title = 'تحليل الإيرادات';
             $third_chart_title = 'تحليل الرياضات';
             $fourth_chart_title = 'تحليل الشهر';
+        }elseif (auth()->user()->type == 'Coach') {
+            $groups = Group::where('academy_id', auth()->user()->coach->academy->id)->latest()->get();
+            $analysis_month=$this->analysisMonth(auth()->user()->coach->academy->id);
+            $first_chart_results = $this->groupsData($groups);
+            $second_chart_results = $this->academyProfits(auth()->user()->coach->academy->id);
+            $third_chart_results = $this->academySports(auth()->user()->coach->academy->id);
+            $first_chart_title = 'اشتراكات اللاعبين بالجروبات';
+            $second_chart_title = 'تحليل الإيرادات';
+            $third_chart_title = 'تحليل الرياضات';
+            $fourth_chart_title = 'تحليل الشهر';
         } elseif (auth()->user()->type == 'ADMIN') {
             if (in_array('ADMIN', auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type == 'ACADEMY') {
                 $groups = Group::where('academy_id', auth()->user()->admin->academy->id)->latest()->get();

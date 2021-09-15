@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academy;
+use App\Models\Coach;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -26,24 +27,43 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    function validateAccessModel($model)
+    {
+        if ($model->status=='pending'){
+            Auth::guard('admin')->logout();
+            return redirect()
+                ->route('admin.login')
+                ->withInput()
+                ->withErrors(['حسابك معلق لحين مراجعة الإدارة لبياناتك ..']);
+        }elseif ($model->status=='rejected'){
+            Auth::guard('admin')->logout();
+            return redirect()
+                ->route('admin.login')
+                ->withInput()
+                ->withErrors(['تم رفض طلب تسجيلك للسبب التالي: '.$model->reject_reason]);
+        }
+        return true;
+
+    }
 
     public function login(Request $request)
     {
         $this->validator($request);
         if(Auth::guard('admin')->attempt($request->only('email','password'),$request->filled('remember'))){
             $academy=Academy::where('user_id',Auth::guard('admin')->id())->first();
-            if ($academy->status=='pending'){
-                Auth::guard('admin')->logout();
-                return redirect()
-                    ->route('admin.login')
-                    ->withInput()
-                    ->withErrors(['حسابك معلق لحين مراجعة الإدارة لبياناتك ..']);
-            }elseif ($academy->status=='rejected'){
-                Auth::guard('admin')->logout();
-                return redirect()
-                    ->route('admin.login')
-                    ->withInput()
-                    ->withErrors(['تم رفض طلب تسجيلك للسبب التالي: '.$academy->reject_reason]);
+            $coach=Coach::where('user_id',Auth::guard('admin')->id())->first();
+            if ($academy)
+            {
+                if ($this->validateAccessModel($academy)!=true)
+                {
+                    return $this->validateAccessModel($academy);
+                }
+            }elseif ($coach)
+            {
+                if ($this->validateAccessModel($coach)!=true)
+                {
+                    return $this->validateAccessModel($coach);
+                }
             }
             Auth::guard('admin')->user()->update([
                'last_ip'=>$request->ip(),

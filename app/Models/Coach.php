@@ -15,6 +15,8 @@ class Coach extends Model
         'city',
         'nationality',
         'nationality_id',
+        'status',
+        'reject_reason',
     ];
 
     public function user():object
