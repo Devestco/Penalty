@@ -57,7 +57,6 @@ class CourseController extends MasterController
     {
         $data = $request->all();
         $course = Course::create($data);
-
         $start_date = Carbon::parse($course->from_date)->format('Y-m-d');
         $end_date = Carbon::parse($course->to_date)->format('Y-m-d');
         while ($start_date <= $end_date) {
@@ -71,7 +70,7 @@ class CourseController extends MasterController
                     'comment' => $request['comment'],
                 ]);
                 foreach ($request['coaches'] as $coach_id){
-                    $coach_day=DB::table('course_coach_day')->insert(['course_day_id'=>$course_day->id,'coach_id'=>$coach_id]);
+                    DB::table('course_coach_day')->insert(['course_day_id'=>$course_day->id,'coach_id'=>$coach_id]);
                 }
             }
             $start_date = Carbon::parse($start_date)->addDay();
@@ -93,8 +92,22 @@ class CourseController extends MasterController
     {
         $sports = Sport::all();
         $academies = Academy::all();
+        if (auth()->user()->type=='ACADEMY'){
+            $coaches=Coach::where('academy_id',auth()->user()->academy->id)->latest()->get();
+            $players=Player::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }elseif (auth()->user()->type=='ADMIN'){
+            if (in_array('ADMIN',auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type=='ACADEMY'){
+                $coaches=Coach::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+                $players=Player::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+            }else{
+                $coaches = Coach::all();
+                $players = Player::all();
+            }
+        }else{
+            return view('errors.403');
+        }
         $row = Course::find($id);
-        return view('course.edit', compact('row', 'sports', 'academies'));
+        return view('course.edit', compact('row', 'sports', 'academies','coaches','players'));
     }
 
     public function update($id, Request $request)
@@ -102,6 +115,35 @@ class CourseController extends MasterController
         $course = Course::find($id);
         $data = $request->all();
         $course->update($data);
+        $start_date = Carbon::parse($course->from_date)->format('Y-m-d');
+        $end_date = Carbon::parse($course->to_date)->format('Y-m-d');
+        while ($start_date <= $end_date) {
+            if (in_array(Carbon::parse($start_date)->dayName, $course->days)) {
+                $course_day_data=[
+                    'course_id' => $course->id,
+                    'date' => $start_date,
+                    'start_time' => Carbon::parse($request['start_time']),
+                    'duration' => $request['duration'],
+                    'activity_id' => 1,
+                    'comment' => $request['comment'],
+                ];
+                $course_days=CourseDay::where($course_day_data)->get();
+                foreach ($course_days as $course_day){
+                    $coach_days=DB::table('course_coach_day')->where(['course_day_id'=>$course_day->id])->get();
+                    foreach ($coach_days as $coach_day){
+                        $coach_day->delete();
+                    }
+                    $course_day->delete();
+                }
+                $course_day=CourseDay::create($course_day_data);
+                foreach ($request['coaches'] as $coach_id){
+                    DB::table('course_coach_day')->insert(['course_day_id'=>$course_day->id,'coach_id'=>$coach_id]);
+                }
+            }
+            $start_date = Carbon::parse($start_date)->addDay();
+        }
+        $course->players()->sync($request['players']);
+        $course->coaches()->sync($request['coaches']);
         return redirect()->route('admin.course.index')->with('updated');
     }
 }

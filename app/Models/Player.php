@@ -16,6 +16,9 @@ class Player extends Model
         'nationality_id',
         'ad_id',
     ];
+    protected $casts = [
+        'birth_date' => 'datetime',
+    ];
 
     public function academy():object
     {

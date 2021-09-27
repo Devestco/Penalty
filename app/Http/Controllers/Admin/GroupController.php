@@ -68,7 +68,7 @@ class GroupController extends MasterController
                 'comment' => $request['comment'],
             ]);
             foreach ($request['coaches'] as $coach_id){
-                $coach_day=DB::table('group_coach_day')->insert(['group_day_id'=>$group_day->id,'coach_id'=>$coach_id]);
+                DB::table('group_coach_day')->insert(['group_day_id'=>$group_day->id,'coach_id'=>$coach_id]);
             }
         }
         $group->players()->sync($request['players']);
@@ -86,10 +86,24 @@ class GroupController extends MasterController
 
     public function edit($id): object
     {
+        $row = Group::find($id);
         $sports = Sport::all();
         $academies = Academy::all();
-        $row = Group::find($id);
-        return view('group.edit', compact('row', 'sports', 'academies'));
+        if (auth()->user()->type=='ACADEMY'){
+            $coaches=Coach::where('academy_id',auth()->user()->academy->id)->latest()->get();
+            $players=Player::where('academy_id',auth()->user()->academy->id)->latest()->get();
+        }elseif (auth()->user()->type=='ADMIN'){
+            if (in_array('ADMIN',auth()->user()->getRoleNames()->toArray()) && auth()->user()->admin->type=='ACADEMY'){
+                $coaches=Coach::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+                $players=Player::where('academy_id',auth()->user()->admin->academy->id)->latest()->get();
+            }else{
+                $coaches = Coach::all();
+                $players = Player::all();
+            }
+        }else{
+            return view('errors.403');
+        }
+        return view('group.edit', compact('row', 'sports', 'academies','coaches','players'));
     }
 
     public function update($id, Request $request)
@@ -97,6 +111,32 @@ class GroupController extends MasterController
         $group = Group::find($id);
         $data = $request->all();
         $group->update($data);
+        $days = $request['days'];
+        foreach ($days as $day) {
+
+            $group_day_data=[
+                'group_id' => $group->id,
+                'name' => $day,
+                'start_time' => Carbon::parse($request['start_time']),
+                'duration' => $request['duration'],
+                'activity_id' => 1,
+                'comment' => $request['comment'],
+            ];
+            $group_days=GroupDay::where($group_day_data)->get();
+            foreach ($group_days as $group_day){
+                $coach_days=DB::table('group_coach_day')->where(['group_day_id'=>$group_day->id])->get();
+                foreach ($coach_days as $coach_day){
+                    $coach_day->delete();
+                }
+                $group_day->delete();
+            }
+            $group_day=GroupDay::create($group_day_data);
+            foreach ($request['coaches'] as $coach_id){
+                DB::table('group_coach_day')->insert(['group_day_id'=>$group_day->id,'coach_id'=>$coach_id]);
+            }
+        }
+        $group->players()->sync($request['players']);
+        $group->coaches()->sync($request['coaches']);
         return redirect()->route('admin.group.index')->with('updated');
     }
 }

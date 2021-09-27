@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') تعديل بيانات أكاديمية @endsection
+@section('title') تعديل بيانات كورس @endsection
 @section('css')
 <link href="{{URL::asset('libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{URL::asset('libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet">
@@ -10,8 +10,8 @@
 @endsection
 @section('content')
  @component('common-components.breadcrumb')
-         @slot('title') الأكاديميات  @endslot
-         @slot('li_1') تعديل بيانات أكاديمية  @endslot
+         @slot('title') الكورسات  @endslot
+         @slot('li_1') تعديل بيانات كورس  @endslot
  @endcomponent
  @if($errors->any())
      <div class="alert alert-danger" role="alert">
@@ -21,7 +21,7 @@
          @endforeach
      </div>
  @endif
- <form method="POST" action="{{route('admin.academy.update',$row->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
+ <form method="POST" action="{{route('admin.course.update',$row->id)}}" enctype="multipart/form-data" data-parsley-validate novalidate>
      @csrf
      @method('PUT')
         <div class="row">
@@ -31,24 +31,75 @@
                     <h4 class="card-title">البيانات العامة</h4>
                     <div class="form-group">
                         <label class="control-label">الاسم</label>
-                        <input required value="{{$row->user->name}}" type="text" class="form-control" maxlength="25" name="name" id="alloptions" />
+                        <input value="{{$row->name}}" required type="text" class="form-control" maxlength="25" name="name" id="alloptions" />
                     </div>
                     <div class="form-group">
-                        <label class="control-label">البريد الإلكتروني</label>
-                        <input name="email" value="{{$row->user->email}}" type="email" class="form-control" required parsley-type="email" placeholder="Enter a valid e-mail" />
+                        <label class="control-label">السعر</label>
+                        <input value="{{$row->price}}" required type="number" class="form-control" name="price" min="0"  />
                     </div>
+
                     <div class="form-group">
-                        <label class="control-label">رقم الجوال</label>
-                        <input name="phone" value="{{$row->user->phone}}" type="text" class="form-control" required maxlength="13" placeholder="+966512345622" />
+                        <label for="sport_id" class="control-label">الرياضة</label>
+                        <select id="sport_id" name="sport_id" class="form-control select2">
+                            @foreach($sports as $sport)
+                                <option @if($sport->id==$row->sport_id) selected @endif value="{{$sport->id}}">{{$sport->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>كلمة المرور</label>
+
+                    <div class="form-group mb-0">
+                        <label class="control-label">أيام التدريب</label>
+                        <select name="days[]" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
+                            <option @if(in_array("Saturday",$row->days)) selected @endif value="Saturday">Saturday</option>
+                            <option @if(in_array("Sunday",$row->days)) selected @endif value="Sunday">Sunday</option>
+                            <option @if(in_array("Monday",$row->days)) selected @endif value="Monday">Monday</option>
+                            <option @if(in_array("Tuesday",$row->days)) selected @endif value="Tuesday">Tuesday</option>
+                            <option @if(in_array("Wednesday",$row->days)) selected @endif value="Wednesday">Wednesday</option>
+                            <option @if(in_array("Thursday",$row->days)) selected @endif value="Thursday">Thursday</option>
+                            <option @if(in_array("Friday",$row->days)) selected @endif value="Friday">Friday</option>
+                        </select>
+                    </div>
+
+                    @if (in_array('SUPER_ADMIN',auth()->user()->getRoleNames()->toArray()))
+                        <div class="form-group">
+                            <label class="control-label">الأكاديمية</label>
+                            <select name="academy_id" class="form-control select2">
+                                @foreach(\App\Models\Academy::all() as $academy)
+                                    <option @if($academy->id==$row->id) selected @endif value="{{$academy->id}}">{{$academy->user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        @if(auth()->user()->type=='ADMIN')
+                            <input hidden name="academy_id" value="{{auth()->user()->admin->academy->id}}">
+                        @else
+                            <input hidden name="academy_id" value="{{auth()->user()->academy->id}}">
+                        @endif
+                    @endif
+
+                    <div class="form-group mb-0">
+                        <label>فترة التدريب</label>
                         <div>
-                            <input name="password" type="password" id="pass2" class="form-control" placeholder="Password" />
+                            <div class="input-daterange input-group" data-provide="datepicker">
+                                <input value="{{$row->from_date}}" type="text" class="form-control" name="from_date" />
+                                <input value="{{$row->to_date}}" type="text" class="form-control" name="to_date" />
+                            </div>
                         </div>
-                        <div class="mt-2">
-                            <input type="password" class="form-control" data-parsley-equalto="#pass2" placeholder="Re-Type Password" />
-                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="example-time-input">موعد بدأ التدريب</label>
+                        <input name="start_time" class="form-control" type="time" value="{{$row->course_days()->first()->start_time}}" id="example-time-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">عدد ساعات التدريب</label>
+                        <input required type="number" class="form-control" name="duration" min="0" value="{{$row->course_days()->first()->duration}}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">ملاحظات أخري</label>
+                        <textarea class="form-control" name="comment">{{$row->course_days()->first()->comment}}</textarea>
                     </div>
                 </div>
             </div>
@@ -56,44 +107,23 @@
             <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">بيانات الأكاديمية</h4>
-                        <div class="form-group">
-                            <label for="image">الشعار</label>
-                            <div class="card-box">
-                                <input name="avatar" id="input-file-now-custom-1 image" type="file" class="dropify" data-default-file="{{$row->user->avatar}}"  />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">الدولة</label>
-                            <select name="country_id" class="form-control select2">
-                                <option value="{{$row->country_id}}">{{$row->country->name}}</option>
-                                @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">المدينة</label>
-                            <input value="{{$row->city}}" type="text" class="form-control" maxlength="25" name="city" id="alloptions" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">كيف سمعت عنا</label>
-                            <select name="ad_id" class="form-control select2">
-                                <option value="{{$row->ad_id}}">{{$row->ad->name}}</option>
-                            @foreach($ads as $ad)
-                                    <option value="{{$ad->id}}">{{$ad->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">حجم الأكاديمية</label>
-                            <select name="academy_size_id" class="form-control select2">
-                                <option value="{{$row->academy_size_id}}">{{$row->academy_size->name}}</option>
-                            @foreach($academy_sizes as $academy_size)
-                                    <option value="{{$academy_size->id}}">{{$academy_size->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <h4 class="card-title">التسجيل</h4>
+                    <div class="form-group mb-0">
+                        <label class="control-label">المدربين</label>
+                        <select name="coaches[]" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
+                            @foreach($coaches as $coach)
+                                <option @if(in_array($coach->id,$row->coaches()->pluck('coach_id')->toArray())) selected @endif value="{{$coach->id}}">{{$coach->user->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="control-label">اللاعبين</label>
+                        <select name="players[]" class="select2 form-control select2-multiple" multiple="multiple" data-placeholder="Choose ...">
+                            @foreach($players as $player)
+                                <option @if(in_array($player->id,$row->players()->pluck('player_id')->toArray())) selected @endif value="{{$player->id}}">{{$player->user->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <!-- end select2 -->
@@ -101,8 +131,8 @@
         </div>
         <div class="row">
             <div class="form-group">
-                <button class="btn btn-primary waves-effect waves-light mr-12" type="submit">
-                    تأكيد
+                <button class="btn btn-success waves-effect waves-light mr-12" type="submit">
+                    تعديل
                 </button>
             </div>
         </div>
