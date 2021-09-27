@@ -42,7 +42,9 @@
     <div class="container-fluid">
         <div id="layout-wrapper">
             @include('layouts.topbar')
-            @include('layouts.sidebar')
+            @if(auth()->user()->type!='COACH')
+                @include('layouts.sidebar')
+            @endif
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->

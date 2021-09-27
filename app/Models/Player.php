@@ -38,4 +38,27 @@ class Player extends Model
     {
         return $this->belongsToMany(Group::class, "group_player", "player_id", "group_id")->withTimestamps();
     }
+
+
+
+    public function getAverageOfActivityInModel($model,$model_id,$activity_id)
+    {
+        $rates=Rate::where(['model'=>$model,'model_id'=>$model_id,'player_id'=>$this->id,'activity_id'=>$activity_id]);
+        if ($rates->count('rate') < 1){
+            return 0;
+        }
+        $sum=Rate::where(['model'=>$model,'model_id'=>$model_id,'player_id'=>$this->id,'activity_id'=>$activity_id])->sum('rate');
+        $count=Rate::where(['model'=>$model,'model_id'=>$model_id,'player_id'=>$this->id,'activity_id'=>$activity_id])->count()*5;
+        return round(($sum/$count)*100);
+    }
+    public function getAverageInModel($model,$model_id)
+    {
+        $rates=Rate::where(['model'=>$model,'model_id'=>$model_id,'player_id'=>$this->id]);
+        if ($rates->count('rate') < 1){
+            return 0;
+        }
+        $sum=Rate::where(['model'=>$model,'model_id'=>$model_id,'player_id'=>$this->id])->sum('rate');
+        $count=Rate::where(['model'=>$model,'model_id'=>$model_id,'player_id'=>$this->id])->count()*5;
+        return round(($sum/$count)*100);
+    }
 }

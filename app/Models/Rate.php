@@ -5,28 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GroupDay extends Model
+class Rate extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'group_id',
-        'name',
-        'start_time',
-        'duration',
+        'player_id',
+        'coach_id',
+        'model',
+        'model_id',
+        'rate',
         'activity_id',
-        'comment',
     ];
-
-    protected $casts = [
-//        'start_time' => 'datetime',
-    ];
-
-    public function group():object
+    public function player():object
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Player::class);
+    }
+    public function coach():object
+    {
+        return $this->belongsTo(Coach::class);
     }
     public function activity():object
     {
         return $this->belongsTo(Activity::class);
     }
+
 }

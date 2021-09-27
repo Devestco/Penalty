@@ -13,6 +13,7 @@ use App\Models\Player;
 use App\Models\Sport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends MasterController
 {
@@ -58,7 +59,7 @@ class GroupController extends MasterController
         $group = Group::create($data);
         $days = $request['days'];
         foreach ($days as $day) {
-            GroupDay::create([
+            $group_day=GroupDay::create([
                 'group_id' => $group->id,
                 'name' => $day,
                 'start_time' => Carbon::parse($request['start_time']),
@@ -66,6 +67,9 @@ class GroupController extends MasterController
                 'activity_id' => 1,
                 'comment' => $request['comment'],
             ]);
+            foreach ($request['coaches'] as $coach_id){
+                $coach_day=DB::table('group_coach_day')->insert(['group_day_id'=>$group_day->id,'coach_id'=>$coach_id]);
+            }
         }
         $group->players()->sync($request['players']);
         $group->coaches()->sync($request['coaches']);
@@ -75,7 +79,9 @@ class GroupController extends MasterController
     public function show($id): object
     {
         $row = Group::find($id);
-        return view('group.show', compact('row'));
+        $players=DB::table('group_player')->where('group_id',$id)->pluck('player_id')->toArray();
+        $players=Player::whereIn('id',$players)->latest()->get();
+        return view('group.show', compact('row','players'));
     }
 
     public function edit($id): object

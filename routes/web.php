@@ -24,6 +24,9 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::put('/profile', 'AdminController@updateProfile')->name('profile.update');
     Route::get('/', 'HomeController@index')->name('home');
 
+    Route::get('calendar-event', 'HomeController@getCalendarEvent');
+    Route::post('calendar-crud-ajax', 'HomeController@postCalendarEvent');
+
     Route::resource('admins', 'AdminsController');
 
     Route::post('user/{id}/ban', 'UserController@ban')->name('user.ban');
@@ -64,5 +67,7 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::get('player-invoice/{id}/credit-details','PlayerInvoiceController@creditDetails')->name('player-invoice.credit-details');
     Route::post('player-invoice/{id}/invoicing','PlayerInvoiceController@invoicing')->name('player-invoice.invoicing');
     Route::resource('player-invoice','PlayerInvoiceController');
+
+    Route::post('player/{id}/rate','CoachController@ratePlayer')->name('coach.rate');
 
 });

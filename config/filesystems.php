@@ -34,11 +34,23 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-
         'media' => [
             'driver' => 'local',
-            'root'   => public_path('media'),
+            'root' => public_path('media'),
+            'url' => env('APP_URL').'/media',
+            'visibility' => 'public',
+            'permissions' => [
+                'file' => [
+                    'public' => 0774,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0700,
+                ],
+            ],
         ],
+
 
         'public' => [
             'driver' => 'local',

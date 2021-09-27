@@ -13,6 +13,7 @@ use App\Models\Player;
 use App\Models\Sport;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends MasterController
 {
@@ -61,7 +62,7 @@ class CourseController extends MasterController
         $end_date = Carbon::parse($course->to_date)->format('Y-m-d');
         while ($start_date <= $end_date) {
             if (in_array(Carbon::parse($start_date)->dayName, $course->days)) {
-                CourseDay::create([
+                $course_day=CourseDay::create([
                     'course_id' => $course->id,
                     'date' => $start_date,
                     'start_time' => Carbon::parse($request['start_time']),
@@ -69,6 +70,9 @@ class CourseController extends MasterController
                     'activity_id' => 1,
                     'comment' => $request['comment'],
                 ]);
+                foreach ($request['coaches'] as $coach_id){
+                    $coach_day=DB::table('course_coach_day')->insert(['course_day_id'=>$course_day->id,'coach_id'=>$coach_id]);
+                }
             }
             $start_date = Carbon::parse($start_date)->addDay();
         }
@@ -80,7 +84,9 @@ class CourseController extends MasterController
     public function show($id): object
     {
         $row = Course::find($id);
-        return view('course.show', compact('row'));
+        $players=DB::table('course_player')->where('course_id',$id)->pluck('player_id')->toArray();
+        $players=Player::whereIn('id',$players)->latest()->get();
+        return view('course.show', compact('row','players'));
     }
 
     public function edit($id): object

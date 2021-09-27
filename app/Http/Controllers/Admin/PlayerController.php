@@ -7,10 +7,13 @@ use App\Http\Requests\Dashboard\PlayerStoreRequest;
 use App\Models\Academy;
 use App\Models\Ad;
 use App\Models\Coach;
+use App\Models\Group;
+use App\Models\GroupDay;
 use App\Models\Player;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlayerController extends MasterController
 {
@@ -44,7 +47,7 @@ class PlayerController extends MasterController
 
     public function store(PlayerStoreRequest $request)
     {
-        $data = $request->all();
+        $data = $request->except('avatar');
         $data['type'] = 'PLAYER';
         $user = User::create($data);
         $user->assignRole(UserRole::of(UserRole::ROLE_PLAYER));

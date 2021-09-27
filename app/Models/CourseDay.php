@@ -19,7 +19,7 @@ class CourseDay extends Model
 
     protected $casts = [
         'date' => 'date',
-        'start_time' => 'datetime',
+//        'start_time' => 'datetime',
     ];
 
     public function course():object

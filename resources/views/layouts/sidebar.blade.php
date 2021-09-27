@@ -29,9 +29,9 @@
                             </ul>
                         </li>
                     @endcan
-                    <li class="menu-title">قائمة الأعضاء</li>
                     @can('academies')
-                        <li>
+                    <li class="menu-title">قائمة الأعضاء</li>
+                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-flip-horizontal"></i>
                             <span>الأكادميات</span>
@@ -56,7 +56,7 @@
                     </li>
                     @endcan
                     @can('players')
-                        <li>
+                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-football"></i>
                             <span>اللاعبين</span>

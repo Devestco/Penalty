@@ -34,4 +34,8 @@ class Sport extends Model implements HasMedia
     {
         FileService::upload($image, $this, "sports", true);
     }
+    public function activities():object
+    {
+        return $this->hasMany(Activity::class);
+    }
 }
