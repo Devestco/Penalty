@@ -63,20 +63,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-control mb-3">
-                                            <input type="text" name="name"  class="form-control input"  placeholder="الاسم">
+                                            <input required type="text" name="name"  class="form-control input"  placeholder="الاسم">
                                         </div>
                                         <div class="form-control mb-3">
-                                            <input type="email" name="email" class="form-control input" placeholder="البريد الالكترونى">
+                                            <input required type="email" name="email" class="form-control input" placeholder="البريد الالكترونى">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="form-control mb-3">
-                                            <input type="text" name="phone" class="form-control input" maxlength="13" placeholder="رقم الهاتف">
+                                            <input required type="text" name="phone" class="form-control input" maxlength="13" placeholder="رقم الهاتف">
                                         </div>
                                         <div class="form-control mb-3">
-                                            <input type="text" name="age" class="form-control input"  placeholder="العمر">
+                                            <input required type="text" name="age" class="form-control input"  placeholder="العمر">
                                         </div>
                                     </div>
                                 </div>
