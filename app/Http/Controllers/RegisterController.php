@@ -9,10 +9,12 @@ use App\Models\Academy;
 use App\Models\AcademySize;
 use App\Models\Ad;
 use App\Models\Coach;
+use App\Models\Contestant;
 use App\Models\Country;
 use App\Models\Sport;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,21 @@ class RegisterController extends Controller
         return view('auth.register', compact('countries', 'ads', 'academy_sizes', 'sports'));
     }
 
+    public function showPlayerRegisterForm()
+    {
+        return view('auth.player-register');
+    }
 
+
+    public function contestantRegister(Request $request)
+    {
+        $data = $request->all();
+        $data['ip']=$request->ip();
+        Contestant::create($data);
+        return redirect()
+            ->route('landing')
+            ->with('status','يرجي انتظار مراجعة الادارة لبياناتك');
+    }
     public function register(AcademyStoreRequest $request)
     {
         $data = $request->validated();

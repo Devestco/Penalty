@@ -1,0 +1,208 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    text-align: right;
+    height: 100vh;
+    background-image: url(../images/3669570.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* start of navigation */
+navigation {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+nav .navbar-collapse .navbar-nav {
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 150px;
+
+}
+
+
+
+.navbar-light .navbar-brand img {
+    width: 80%;
+    height: 80%;
+}
+
+.navbar-light .nav-item .nav-link {
+    color: #334565 !important;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+navigation .navbar-light .navbar-brand img {
+    width: 105px;
+    height: 45px;
+}
+
+
+navigation .navbar-light .navbar-collapse .form-inline .inroll-btn {
+    background-color: #3B5DE7;
+    border-radius: 13px;
+    width: 180px;
+    height: 58px;
+    color: #ffffff;
+    padding-top: 15px;
+}
+
+@media (max-width:600px) {
+    navigation .navbar-light .navbar-brand img {
+        height: 43px;
+    }
+
+    navigation {
+        padding: 10px 5px;
+    }
+
+}
+
+@media (max-width:1000px) {
+    nav .navbar-collapse .navbar-nav {
+        padding-right: 0;
+    }
+
+   
+}
+
+@media (max-width:991px) {
+    navigation .navbar-light .navbar-collapse .form-inline .inroll-btn {
+        background-color: unset;
+        color: #334565;
+        width: auto;
+        height: auto;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0;
+    }
+
+  
+}
+/* ad */
+.btola{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 40px;
+    z-index: 1000;
+}
+.first{
+    margin-top: 100px;
+}
+.second{
+    margin-top: 200px;
+}
+.dis{
+    font-weight: 400 !important;
+}
+.place{
+    width: 100%;
+    height: 120px;
+ 
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding-top: 8px;
+}
+.place1{
+    background-color: #745ef1;
+}
+.place2{
+    background-color: #9039f7;
+    width: 100% !important;
+}
+.place3{
+    background-color: #b328f9;
+    width: 100% !important;
+}
+.inroll-btn{
+    width: 200px;
+    height: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+}
+.mopile{
+    display: none;
+}
+@media (max-width:600px) {
+    .second{
+        margin-top: 10px;
+    }
+    body{
+        background-image: none;
+        background-color: #000;
+    }
+    .btola{
+        font-size: 30px;
+        line-height: 2;
+    }
+    .dis{
+        font-size: 30px !important;
+        text-align: center;
+    }
+    .mopile{
+        display: unset;
+        width: 100%;
+        height: 60px;
+        font-size: 30px;
+        margin-top: 10px;
+    }
+    .web{
+        display: none;
+        width: 100% !important;
+    }
+    .place-one{
+        margin-top: 10px !important;
+        padding: 0 10px;
+    }
+    .place1,.place2,.place3{
+        width: 100% !important;
+        
+    }
+    .place3{
+        margin-top: 10px;
+    }
+    .sub-btn{
+        width: 100%;
+    }
+    .third{
+        padding: 0 30px;
+    }
+    .places{
+        margin-top: 20px !important;
+    }
+}
+.contact-form input{
+    border:unset;
+    background-color: #000;
+    color: #ffffff;
+    
+}
+.form-control{
+    background-color: #000 !important;
+}
+.form-section{
+    margin-top: 100px;
+}
+.places{
+    margin-top: 80px;
+}
+@media (max-width:990px) {
+    .place h2{
+        font-weight: normal;
+    }
+    .place h1{
+        font-weight: normal;
+    }
+}

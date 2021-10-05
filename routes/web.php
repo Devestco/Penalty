@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('landing-page');
+    return view('new-landing-page');
 })->name('landing');
+Route::get('/player-register','App\Http\Controllers\RegisterController@showPlayerRegisterForm')->name('player.register');
+Route::post('/player-register','App\Http\Controllers\RegisterController@contestantRegister')->name('player.register.submit');
+
 Route::get('/register','App\Http\Controllers\RegisterController@showRegisterForm')->name('register');
 Route::post('/register','App\Http\Controllers\RegisterController@register')->name('register.submit');
 Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function() {
@@ -61,6 +64,8 @@ Route::prefix('/admin')->name('admin.')->namespace('App\Http\Controllers\Admin')
     Route::resource('group','GroupController');
     //courses
     Route::resource('course','CourseController');
+
+    Route::resource('contestant','ContestantController');
 
     //players-invoices
     Route::get('invoice/{id}','PlayerInvoiceController@invoice')->name('player.invoice');

@@ -16,6 +16,18 @@
                 <!-- Left Menu Start -->
                 <ul class="metismenu list-unstyled" id="side-menu">
                     @can('admins')
+                        <li class="menu-title"><span class="waves-effect badge-soft-warning">{{\App\Models\Contestant::count()}}</span>
+                            قائمة بيانات المتسابقين
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="mdi mdi-console-network"></i>
+                                <span>المتسابقين</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{route('admin.contestant.index')}}">عرض الكل</a></li>
+                            </ul>
+                        </li>
                         <li class="menu-title">الإدارة</li>
                         <li>
                             <a href="javascript: void(0);">
