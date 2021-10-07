@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('web/css/all.min.css')}}">
-
     <link rel="stylesheet" href="{{asset('web/css/main.css')}}">
-
     <title>mosarek</title>
 </head>
 <body>
@@ -27,24 +24,16 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav">
-
-
-
                             </ul>
                             <form class="form-inline my-2 my-lg-0 ">
-
-
-
                             </form>
                         </div>
                     </nav>
                 </div>
             </div>
         </div>
-
     </navigation>
 </header>
 
@@ -52,7 +41,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1 class="btola">بطولة مشارك<br> للبلايستيشن اكتوبر 2021</h1>
+                <h1 class="btola">بطولة مشارك للبلايستيشن اكتوبر 2021</h1>
             </div>
             <div class="col-md-6"></div>
 
@@ -68,7 +57,7 @@
                 <a href="{{route('player.register')}}" class="btn btn-primary inroll-btn web">اشترك الان</a>
             </div>
             <div class="col-md-6">
-                <div class="row places">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="place place1">
                             <h2>المركز الاول</h2>
@@ -76,23 +65,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2 place-one">
+                <div class="row mt-5 place-one">
                     <div class="col-md-6">
                         <div class="place place2">
                             <h2>المركز الثانى</h2>
                             <h1  style="font-weight: bold;">2000 ريال</h1>
                         </div>
                     </div>
-                    <div class="col-md-6 third">
+                    <div class="col-md-6">
                         <div class="place place3">
                             <h2>المركز الثالث</h2>
                             <h1  style="font-weight: bold;">1000 ريال</h1>
                         </div>
                     </div>
                     <a href="{{route('player.register')}}" class="btn btn-primary inroll-btn mopile">اشترك الان</a>
-
                 </div>
-
             </div>
         </div>
     </div>
