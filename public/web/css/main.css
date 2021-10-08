@@ -1,189 +1,124 @@
-body {
+body{
+    background-color: #0a0d10;
     font-family: 'Cairo', sans-serif;
     direction: rtl;
     text-align: right;
-    height: 100vh;
-    background-image: url(../images/3669570.jpg);
-    background-size: cover;
+}
+.logo{
+    position: absolute;
+    right: 5%;
+    top: 5%;
+
+}
+.logo img{
+    
+    height: 38px;
+}
+
+.ads{
+    position: relative;
+    width: 90%;
+    height: 600px;
+    border-radius: 20px;
+    background-image: url(../images/fifae-club-series-complexity.png);
     background-repeat: no-repeat;
     background-position: center;
-}
-
-/* start of navigation */
-navigation {
-    position: fixed;
-    z-index: 1000;
-    width: 100%;
-    top: 0;
-    left: 0;
-}
-
-nav .navbar-collapse .navbar-nav {
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 150px;
-
-}
-
-
-
-.navbar-light .navbar-brand img {
-    width: 80%;
-    height: 80%;
-}
-
-.navbar-light .nav-item .nav-link {
-    color: #334565 !important;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-navigation .navbar-light .navbar-brand img {
-    width: 105px;
-    height: 45px;
-}
-
-
-navigation .navbar-light .navbar-collapse .form-inline .inroll-btn {
-    background-color: #3B5DE7;
-    border-radius: 13px;
-    width: 180px;
-    height: 58px;
-    color: #ffffff;
-    padding-top: 15px;
-}
-
-@media (max-width:600px) {
-    navigation .navbar-light .navbar-brand img {
-        height: 43px;
-    }
-
-    navigation {
-        padding: 10px 5px;
-    }
-
-}
-
-@media (max-width:1000px) {
-    nav .navbar-collapse .navbar-nav {
-        padding-right: 0;
-    }
-
-   
-}
-
-@media (max-width:991px) {
-    navigation .navbar-light .navbar-collapse .form-inline .inroll-btn {
-        background-color: unset;
-        color: #334565;
-        width: auto;
-        height: auto;
-        font-size: 18px;
-        font-weight: bold;
-        padding: 0;
-    }
-
-  
-}
-/* ad */
-.btola{
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 48px;
-    z-index: 1000;
-}
-.first{
+    background-size: cover;
+    margin: auto;
     margin-top: 100px;
+    
 }
-.second{
-    margin-top: 200px;
+.small-size{
+    font-weight: normal !important;
+    font-size: 30px !important;
 }
-.dis{
-    font-weight: 400 !important;
-}
-.place{
-    width: 400px;
-    height: 120px;
- 
-    border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    color: #FFFFFF;
+.main-cont{
+    font-size: 40px;
+    color: #ffffff;
+    padding-top: 100px;
     font-weight: bold;
-    padding-top: 8px;
+    z-index: 1000;
 }
-.place1{
-    background-color: #745ef1;
+.prizes img{
+    width: 100px;
+    height: 100px;
 }
-.place2{
-    background-color: #9039f7;
-    width: 300px !important;
-}
-.place3{
-    background-color: #b328f9;
-    width: 300px !important;
-}
-.inroll-btn{
-    width: 200px;
-    height: 50px;
-    text-decoration: none;
+.prizes{
+    font-size: 40px;
     font-weight: bold;
-    font-size: 25px;
+    color: #ffffff;
 }
-.mopile{
-    display: none;
+.main-prize{
+    direction: ltr;
+    text-align: left;
+}
+.form-button{
+    background-color: crimson;
+    color: #ffffff;
+    width: 30%;
+    height: 60px;
+    border-radius: 20px;
+    border-color: unset;
+    border: unset;
+    font-weight: bold;
+    z-index: 30000;
+    
+    
+}
+.black-bg{
+width: 100%;
+height: 100%;
+position: absolute;
+background-color: #000;
+opacity: 0.7;
+display: none;
+z-index:0.1 ;
+border-radius: 20px;
+left: 0;
+top: 0;
+}
+.sub-btn{
+    z-index: 1000;
 }
 @media (max-width:600px) {
-    .second{
-        margin-top: 10px;
+    .ads{
+        height: auto;
+        padding: 20px 0;
     }
-    body{
-        background-image: none;
-        background-color: #000;
+    .main-cont{
+        font-size: 27px;
+        text-align: center;
+        padding-top: 35px;
     }
-    .btola{
-        font-size: 30px;
-    }
-    .dis{
-        font-size: 30px !important;
-    }
-    .mopile{
-        display: unset;
+    .form-button{
         width: 100%;
-        height: 60px;
-        font-size: 30px;
-        margin-top: 10px;
+        margin-bottom: 40px;
     }
-    .web{
-        display: none;
-        width: 100% !important;
+    .black-bg{
+        display: unset;
     }
-    .place-one{
-        margin-top: 10px !important;
-        padding: 0 10px;
+    .mopile-mode{
+        display: none !important;
     }
-    .place1,.place2,.place3{
+    .form-group input{
         width: 100% !important;
         
     }
-    .place3{
-        margin-top: 10px;
-    }
-    .sub-btn{
-        width: 100%;
-    }
+    .form-group label{ 
+        font-size: 20px !important;
+     
+        }
 }
-.contact-form input{
-    border:unset;
-    background-color: #000;
-    color: #ffffff;
-    
+.form-group{
+    margin-bottom: 20px;
 }
-.form-control{
-    background-color: #000 !important;
+.form-group label{
+font-size: 30px;
+font-weight: bold;
+color: #ffffff;
+padding-bottom: 5px;
 }
-.form-section{
-    margin-top: 100px;
+.form-group input{
+    width: 70%;
+    height: 50px;
 }

@@ -10,76 +10,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('web/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('web/css/main.css')}}">
-    <title>mosarek</title>
+    <title>mosharek</title>
 </head>
 <body>
-
-<header>
-    <navigation id="navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light ">
-                        <a class="navbar-brand" href="{{route('landing')}}"><img src="{{asset('web/images/logo.png')}}" alt="logo"></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav">
-                            </ul>
-                            <form class="form-inline my-2 my-lg-0 ">
-                            </form>
-                        </div>
-                    </nav>
-                </div>
+<a href="{{route('landing')}}" class="logo">
+    <img src="{{asset('web/images/logo.png')}}" alt="">
+</a>
+<div class="ads">
+    <div class="black-bg"></div>
+    <div class="container  h-80">
+        <div class="row ">
+            <div class="col-md-6  main-cont">
+                <p>بطولة مشارك <br> للبلايستيشن اكتوبر 2021</p>
+                <p class="small-size">قم بالأشتراك في بطولة مشارك للبلايستيشن 2021 بلعبة FIFA 2021</p>
+            </div>
+            <div class="col-md-6 main-prize main-cont">
+                <p class="prizes"><img src="{{asset('web/images/medal.png')}}" alt=""> 3000 ريال</p>
+                <p class="prizes"><img src="{{asset('web/images/medal (2).png')}}" alt="">2000 ريال</p>
+                <p class="prizes"><img src="{{asset('web/images/medal (3).png')}}" alt="">3000 ريال</p>
             </div>
         </div>
-    </navigation>
-</header>
-
-<div class="first">
-    <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h1 class="btola">بطولة مشارك للبلايستيشن اكتوبر 2021</h1>
-            </div>
-            <div class="col-md-6"></div>
-
-        </div>
-    </div>
-</div>
-<div class="second">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="btola dis">قم بالأشتراك في بطولة مشارك للبلايستيشن  2021 بلعبة FIFA 2021
-                </h1>
-                <a href="{{route('player.register')}}" class="btn btn-primary inroll-btn web">اشترك الان</a>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="place place1">
-                            <h2>المركز الاول</h2>
-                            <h1 style="font-weight: bold;">3000 ريال</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-5 place-one">
-                    <div class="col-md-6">
-                        <div class="place place2">
-                            <h2>المركز الثانى</h2>
-                            <h1  style="font-weight: bold;">2000 ريال</h1>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="place place3">
-                            <h2>المركز الثالث</h2>
-                            <h1  style="font-weight: bold;">1000 ريال</h1>
-                        </div>
-                    </div>
-                    <a href="{{route('player.register')}}" class="btn btn-primary inroll-btn mopile">اشترك الان</a>
-                </div>
+            <div class="col-md-12 sub-btn">
+                <a href="{{route('player.register')}}">
+                    <button class="form-button">اشترك الان</button>
+                </a>
             </div>
         </div>
     </div>
