@@ -41,10 +41,11 @@ class RegisterController extends Controller
     {
         $data = $request->all();
         $data['ip']=$request->ip();
-        Contestant::create($data);
-        return redirect()
-            ->route('landing')
-            ->with('status','يرجي انتظار مراجعة الادارة لبياناتك');
+        $contestant = Contestant::create($data);
+        if($contestant) {
+            return 200;
+        }
+        return 400;
     }
     public function register(AcademyStoreRequest $request)
     {

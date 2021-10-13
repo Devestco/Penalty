@@ -20,29 +20,29 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <form method="POST" action="{{ route('player.register') }}" >
+                <form id="form">
                     @csrf
                     <div class="form-group">
                         <label for="exampleInputName">الاسم</label>
-                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="الاسم">
+                        <input type="text" name="name" class="form-control" id="username" aria-describedby="emailHelp" autocomplete ="off" placeholder="الاسم">
 
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail">البريد الالكترونى</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="البريد الالكترونى">
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" autocomplete ="off"  placeholder="البريد الالكترونى">
 
                     </div>
                     <div class="form-group">
                         <label for="exampleInputAge">العمر</label>
-                        <input type="text" name="age" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="العمر">
+                        <input type="text" name="age" class="form-control" id="age" aria-describedby="emailHelp" autocomplete ="off" placeholder="العمر">
 
                     </div>
                     <div class="form-group">
                         <label for="exampleInputpphone">رقم الهاتف</label>
-                        <input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="رقم الهاتف">
+                        <input type="text" name="phone" class="form-control" id="phone" aria-describedby="emailHelp" autocomplete ="off" placeholder="رقم الهاتف">
 
                     </div>
-                    <button type="submit" class="form-button">اشترك الان</button>
+                    <button type="submit" class="form-button" id="btn_submit">اشترك الان</button>
                 </form>
             </div>
             <div class="col-md-6 text-center  main-cont mopile-mode">
@@ -66,6 +66,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 <script src="{{asset('web/js/all.min.js')}}"></script>
 <script src="{{asset('web/js/app.js')}}"></script>
+
+<script>
+    let form_control = document.getElementsByClassName('form-control');
+    let errors=[];
+    form.onsubmit = function(e){
+        e.preventDefault();
+        if(errors.length > 0){errors = []}
+        for(let i=0 ; i<form_control.length ; i++){
+            if(form_control[i].value == ''){
+                errors.push(form_control[i].getAttribute('id'));
+            }
+        }
+        for(let e = 0 ; e < errors.length ; e++){
+            document.getElementById(errors[e]).style.border = '1px solid #F00';
+        }
+        if(errors.length <= 0){
+            $.ajax({
+                method : 'post',
+                url: '{{route('player.register.submit')}}',
+                data :{
+                    _token:$('input[name=_token]').val(),
+                    name:username.value,
+                    email:email.value,
+                    age:age.value,
+                    phone:phone.value,
+                },
+                success: function(result){
+                    if(result == 200){
+                        modal.classList.toggle('active')
+                    }
+                }});
+        }
+    }
+</script>
 
 </body>
 </html>
