@@ -84,7 +84,7 @@
         if(errors.length <= 0){
             $.ajax({
                 method : 'post',
-                url: '{{route('player.register.submit')}}',
+                url: '/player-register',
                 data :{
                     _token:$('input[name=_token]').val(),
                     name:username.value,
