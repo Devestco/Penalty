@@ -27,7 +27,7 @@
             <div class="col-md-6 main-prize main-cont">
                 <p class="prizes"><img src="{{asset('web/images/medal.png')}}" alt=""> 3000 ريال</p>
                 <p class="prizes"><img src="{{asset('web/images/medal (2).png')}}" alt="">2000 ريال</p>
-                <p class="prizes"><img src="{{asset('web/images/medal (3).png')}}" alt="">3000 ريال</p>
+                <p class="prizes"><img src="{{asset('web/images/medal (3).png')}}" alt="">1000 ريال</p>
             </div>
         </div>
         <div class="row">

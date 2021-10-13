@@ -122,3 +122,62 @@ padding-bottom: 5px;
     width: 70%;
     height: 50px;
 }
+
+#modal {
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    z-index: 1000;
+    background: #03a9f4;
+    width: 450px;
+    padding: 80px 80px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    transition: 0.5s;
+    visibility: hidden;
+}
+
+.active {
+    visibility: visible !important;
+    top: 50% !important;
+}
+
+ .content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+ .content h2 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 20px 0 10px;
+}
+
+
+ .content .inputBox {
+    position: relative;
+    width: 100;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close{
+    position: absolute;
+    top: -30px;
+    right: -20px;
+    color: #333;
+    cursor: pointer;
+    font-size: 40px;
+}
+
+
+
